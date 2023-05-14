@@ -1,3 +1,6 @@
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 using GadgetBlitzPZ;
 using GadgetBlitzPZ.Services.NavigationService;
 using GadgetBlitzPZ.Services.Smartphone;
@@ -11,8 +14,15 @@ builder.Services.AddScoped<INavigationService, NavigationService>();
 
 builder.Services.AddScoped<ISmartphoneService, SmartphoneService>();
 
+builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrapProviders()
+    .AddFontAwesomeIcons();
+
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();
-//asdas
