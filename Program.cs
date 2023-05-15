@@ -4,6 +4,7 @@ using Blazorise.Icons.FontAwesome;
 using GadgetBlitzPZ;
 using GadgetBlitzPZ.Services.NavigationService;
 using GadgetBlitzPZ.Services.Smartphone;
+using GadgetBlitzPZ.ViewModels.User;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -13,6 +14,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped<INavigationService, NavigationService>();
 
 builder.Services.AddScoped<ISmartphoneService, SmartphoneService>();
+
+builder.Services.AddScoped<IUserViewModel, UserViewModel>();
 
 builder.Services
     .AddBlazorise(options =>
