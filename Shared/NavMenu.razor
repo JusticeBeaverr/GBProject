@@ -1,4 +1,6 @@
-﻿<Bar Breakpoint="Breakpoint.Desktop"
+﻿@inject ViewModels.User.IUserViewModel viewModel;
+
+<Bar Breakpoint="Breakpoint.Desktop"
      Background="Background.Light"
      ThemeContrast="ThemeContrast.Light"
      Expand="BarExpand.FullWidth">
@@ -17,9 +19,127 @@
         </BarStart>
         <BarEnd>
             <BarItem>
-                <Button Color="Color.Primary">Sign up</Button>
-                <Button Color="Color.Secondary">Log in</Button>
+                <Button Color="Color.Primary" Clicked="@ShowRegisterForm">Signup</Button>
+                <Button Color="Color.Secondary" Clicked="@ShowLoginForm">Login</Button>
             </BarItem>
         </BarEnd>
     </BarMenu>
 </Bar>
+
+
+
+
+<Modal @ref="LoginForm">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Login</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Email</FieldLabel>
+                <TextEdit Placeholder="Enter email" @bind-Text="@viewModel.newUser.Email">
+                </TextEdit>
+            </Field>
+            <Field>
+                <FieldLabel>Password</FieldLabel>
+                <TextEdit Role="TextRole.Password" Placeholder="Password" @bind-Text="@viewModel.newUser.Password">
+                </TextEdit>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideLoginForm">Close</Button>
+            <Button Color="Color.Primary" Clicked="@LoginUser">Login</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="RegisterForm">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Sign Up</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Validations Mode="ValidationMode.Auto" Model="@viewModel.newUser"> 
+                <Validation>
+                    <Field Horizontal>
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <TextEdit Placeholder="Enter email" @bind-Text="@viewModel.newUser.Email">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </FieldBody>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field Horizontal>
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Password</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <TextEdit Role="TextRole.Password" Placeholder="Password" @bind-Text="@viewModel.newUser.Password">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </FieldBody>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field Horizontal>
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Re Password</FieldLabel>
+                        <FieldBody ColumnSize="ColumnSize.Is10">
+                            <TextEdit Role="TextRole.Password" Placeholder="Retype password" @bind-Text="@viewModel.newUser.ConfirmPassword">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </FieldBody>
+                    </Field>
+                </Validation>
+            </Validations>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideRegisterForm">Close</Button>
+            <Button Color="Color.Primary" Clicked="@GetNewUser">Register</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+@code{
+    // reference to the modal component
+    private Modal RegisterForm;
+    private Modal LoginForm;
+
+    private Task ShowRegisterForm()
+    {
+        return RegisterForm.Show();
+    }
+
+    private Task HideRegisterForm()
+    {
+        return RegisterForm.Hide();
+    }
+
+    private  Task GetNewUser()
+    {
+        viewModel.Registration();
+        return RegisterForm.Hide();
+    }
+
+    private Task ShowLoginForm()
+    {
+        return LoginForm.Show();
+    }
+
+    private Task HideLoginForm()
+    {
+        return LoginForm.Hide();
+    }
+
+    private Task LoginUser()
+    {
+        viewModel.Login();
+        return LoginForm.Hide();
+    }
+}
