@@ -1,4 +1,11 @@
 ﻿@inherits LayoutComponentBase
+@using GadgetBlitzPZ.Pages.Templates
+
+<style>
+    .content {
+        background: linear-gradient(0deg, white, lightgray);
+    }
+</style>
 
 <div class="page">
     
@@ -6,11 +13,11 @@
     <LayoutHeader>
         <NavMenu/>
     </LayoutHeader>
-    <LayoutContent>
+        <LayoutContent Class="content">
         @Body
     </LayoutContent>
     <LayoutFooter>
-        Footer
+        <FooterBar></FooterBar>
     </LayoutFooter>
 </Layout>
 </div>
