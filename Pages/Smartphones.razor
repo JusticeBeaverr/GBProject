@@ -1,301 +1,131 @@
 ﻿@using GadgetBlitzPZ.Models.Smartphone
+@using GadgetBlitzPZ.Pages.Templates
 @using System.Linq
 @using Blazorise.Bootstrap
 @using Blazorise.Icons.FontAwesome
 @page "/smartphones"
 
-<link rel="stylesheet" href="Styles/Smartphones.css"/>
-
 <PageTitle>Smartphones</PageTitle>
 
-<div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-md-2">
-            <!-- Pasek z filtrowaniem wyników -->
-            <div class="navbar navbar-expand-md navbar-light bg-light flex-md-column shadow-sm">
-                    <ul class="navbar-nav flex-md-column">
-                    <!-- Marka -->
-                        <li class="nav-item mt-2 mb-2">
-                            <h5>Marka</h5>
-                            <div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="brand1" value="Samsung">
-                                    <label class="form-check-label" for="brand1">
-                                        Samsung
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="brand2" value="Apple">
-                                    <label class="form-check-label" for="brand2">
-                                        Apple
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="brand3" value="Xiaomi">
-                                    <label class="form-check-label" for="brand3">
-                                        Xiaomi
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="brand4" value="Huawei">
-                                    <label class="form-check-label" for="brand4">
-                                        Huawei
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="brand5" value="OPPO">
-                                    <label class="form-check-label" for="brand5">
-                                        OPPO
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="brand6" value="Realme">
-                                    <label class="form-check-label" for="brand6">
-                                        Realme
-                                    </label>
-                                </div>
-                                <!-- Dodaj więcej pól CheckBox dla innych marek -->
-                            </div>
-                        </li>
-                    <!-- Wielkość ekranu -->
-                        <li class="nav-item mt-2 mb-2">
-                            <h5>Wielkość ekranu</h5>
-                            <div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="screenSize1" value="5">
-                                    <label class="form-check-label" for="screenSize1">
-                                        5 cali
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="screenSize1" value="5.5">
-                                    <label class="form-check-label" for="screenSize1">
-                                        5.5 cala
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="screenSize3" value="6.2">
-                                    <label class="form-check-label" for="screenSize3">
-                                        6.2 cala
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="screenSize4" value="6.7">
-                                    <label class="form-check-label" for="screenSize4">
-                                        6.7 cala
-                                    </label>
-                                </div>
-                                <!-- Dodaj więcej pól CheckBox dla innych opcji -->
-                            </div>
-                        </li>
-                    <!-- Procesor -->
-                        <li class="nav-item mt-2 mb-2">
-                            <h5>Procesor</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Intel Core i5" id="processor1">
-                                <label class="form-check-label" for="processor1">
-                                    Intel Core i5
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="AMD Ryzen 7" id="processor2">
-                                <label class="form-check-label" for="processor2">
-                                    AMD Ryzen 7
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Qualcomm Snapdragon 888" id="processor3">
-                                <label class="form-check-label" for="processor3">
-                                    Qualcomm Snapdragon 888
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Apple A14 Bionic" id="processor4">
-                                <label class="form-check-label" for="processor4">
-                                    Apple A14 Bionic
-                                </label>
-                            </div>
-                            <!-- Dodaj więcej opcji procesorów -->
-                        </li>
-                    <!-- Pamięć masowa -->
-                        <li class="nav-item mt-2 mb-2">
-                        <h5>Pamięć masowa</h5>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="32GB" id="storage1">
-                            <label class="form-check-label" for="storage1">
-                                32GB
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="64GB" id="storage2">
-                            <label class="form-check-label" for="storage2">
-                                64GB
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="128GB" id="storage3">
-                            <label class="form-check-label" for="storage3">
-                                128GB
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="256GB" id="storage4">
-                            <label class="form-check-label" for="storage4">
-                                256GB
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="512GB" id="storage5">
-                            <label class="form-check-label" for="storage5">
-                                512GB
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1TB" id="storage6">
-                            <label class="form-check-label" for="storage6">
-                                1TB
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="2TB" id="storage7">
-                            <label class="form-check-label" for="storage7">
-                                2TB
-                            </label>
-                        </div>
-                        <!-- Dodaj więcej opcji pamięci masowej -->
-                    </li>
-                    <!-- System-->
-                    <li class="nav-item mt-2 mb-2">
-                        <h5>System operacyjny</h5>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Android" id="os1">
-                            <label class="form-check-label" for="os1">
-                                Android
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="iOS" id="os2">
-                            <label class="form-check-label" for="os2">
-                                iOS
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Inne" id="os3">
-                            <label class="form-check-label" for="os3">
-                                Inne
-                            </label>
-                        </div>
-                        <!-- Dodaj więcej opcji systemów operacyjnych -->
-                    </li>
-                    <!-- Zakres Cenowy -->
-                    <li class="nav-item mt-2 mb-2">
-                        <h5>Zakres cenowy</h5>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="minPrice" placeholder="Cena min">
-                            <div class="input-group-text">do</div>
-                            <input type="number" class="form-control" id="maxPrice" placeholder="Cena max">
-                        </div>
-                    </li>
+<Style></Style>
 
-                        <!-- Dodaj więcej filtrów -->
-                    </ul>
-                    
-                <button class="btn btn-secondary btn-sm mt-6">Szukaj</button>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <!-- Lista ze smartfonami -->
-            <div class="row">
-                @foreach (var smartphone in Model)
-                {
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body d-flex flex-column justify-content-between h-100">
-                                <div class="d-flex align-items-center">
-                                    <div class="mr-3">
-                                        <img src="@smartphone.Img" alt="Smartphone Image" style="width: 120px; height: 200px; border-radius: 3%;" />
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">@smartphone.Name</h5>
-                                        <p class="card-text small">
-                                            <strong>Size:</strong> @smartphone.Size<br />
-                                            <strong>CPU:</strong> @smartphone.Cpu<br />
-                                            <strong>System:</strong> @smartphone.System<br />
-                                            <strong>Storage:</strong> @smartphone.Storage<br />
-                                            <strong>Price:</strong> @smartphone.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row align-items-center">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input custom-checkbox" type="checkbox" id="compareCheckbox" value="compare">
-                                            <label class="form-check-label font-weight-bold" for="compareCheckbox">
-                                                Dodaj do porównania
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 text-md-right">
-                                        <button class="btn btn-secondary btn-sm btn-lg mb-1" style="width: 100%;">Dane Techniczne</button>
-                                        <button class="btn btn-primary btn-sm btn-lg mb-1" style="width: 100%;">Zobacz w sklepie</button>
-                                    </div>
-                                </div>
-                            </div>
+<div class="container-fluid mt-4 mb-4">
+	<div class="row">
+		<div class="col-md-2">
+			<SideBar></SideBar>
+		</div>
+		<div class="col-md-8">
+			<!-- Lista ze smartfonami -->
+			<div class="row">
+				@foreach (var smartphone in Model)
+				{
+					<div class="col-md-4 mb-4">
+						<div class="card custom-shadow">
+							<div class="card-body d-flex flex-column justify-content-between h-100">
+								<div class="d-flex align-items-center">
+									<div class="mr-3">
+										<img src="@smartphone.Img" alt="Smartphone Image" style="width: 120px; height: 200px; border-radius: 3%;" />
+									</div>
+									<div class="card-body">
+										<h5 class="card-title">@smartphone.Name</h5>
+										<p class="card-text small">
+											<strong>Size:</strong> @smartphone.Size<br />
+											<strong>CPU:</strong> @smartphone.Cpu<br />
+											<strong>System:</strong> @smartphone.System<br />
+											<strong>Storage:</strong> @smartphone.Storage<br />
+											<strong>Price:</strong> @smartphone.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer">
+								<div class="row align-items-center">
+									<div class="col-md-6">
+										<div class="form-check d-flex align-items-center">
+											<input class="form-check-input custom-checkbox mr-5" type="checkbox" id="compareCheckbox_@smartphone.Id" value="compare">
+											<label class="form-check-label font-weight-bold ml-2" for="compareCheckbox_@smartphone.Id">
+												Dodaj do porównania
+											</label>
+										</div>
 
+									</div>
+									<div class="col-md-6 text-md-right">
+										<button class="btn btn-secondary btn-sm btn-lg mb-1" style="width: 100%;">Dane Techniczne</button>
+										<button class="btn btn-primary btn-sm btn-lg mb-1" style="width: 100%;">Zobacz w sklepie</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
 
+		</div>
+		<div class="col-md-2">
+			<AdBar></AdBar>
+		</div>
+	</div>
+	<!-- Poprzednia i Nastepna strona-->
+	<div class="text-center d-flex justify-content-center align-items-bottom">
+		<button class="btn btn-secondary btn-lg mb-1 text-xl" style="width: 12%;">Poprzednia Strona</button>
 
+		<ul class="pagination d-flex ml-3 mr-3">
+			@for (int i = 1; i <= 87; i++)
+			{
+				@if (i <= 3 || i == 87)
+				{
+					<li class="page-item">
+						<a class="page-link text-xl btn btn-light btn-lg" href="#">@i</a>
+					</li>
+				}
+				else if (i == 4)
+				{
+					<li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+				}
+			}
+		</ul>
 
-
-
-
-                        </div>
-                    </div>
-                }
-            </div>
-
-        </div>
-        <div class="col-md-2">
-            <!-- Puste miejsce na prawej stronie (np. reklamy) -->
-        </div>
-    </div>
+		<button class="btn btn-primary btn-lg mb-1 text-xl" style="width: 12%;">Następna Strona</button>
+	</div>
 </div>
 
 
 @code {
-    private bool showMoreBrands = false;
-    private int brandCount = 3;
+	private bool showMoreBrands = false;
+	private int brandCount = 3;
 
-    private void ToggleShowMoreBrands()
-    {
-        showMoreBrands = !showMoreBrands;
-    }
-
-
+	private void ToggleShowMoreBrands()
+	{
+		showMoreBrands = !showMoreBrands;
+	}
 
 
-    private List<SmartphoneModel> Model { get; set; }
+	private List<SmartphoneModel> Model { get; set; }
 
-    protected override void OnInitialized()
-    {
-        // Inicjalizacja danych modelu - przykładowe smartfony
-        Model = new List<SmartphoneModel>
-        {
-            new SmartphoneModel { Id = 1, Name = "Samsung Galaxy A5", Size = "5.5 inches", Cpu = "Snapdragon 855", System = "Android", Storage = "128 GB", Img = "https://picsum.photos/200/300", Price = 999.99m },
-            new SmartphoneModel { Id = 2, Name = "Huawei 100", Size = "6.2 inches", Cpu = "Exynos 990", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1499.99m },
-            new SmartphoneModel { Id = 3, Name = "Apple iPhone 14 Pro", Size = "6.4 inches", Cpu = "Apple A14 Bionic", System = "iOS", Storage = "64 GB", Img = "https://picsum.photos/200/300", Price = 1299.99m },
-            new SmartphoneModel { Id = 4, Name = "Samsung Galaxy S21", Size = "6.1 inches", Cpu = "Snapdragon 888", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1399.99m },
-            new SmartphoneModel { Id = 5, Name = "Samsung Galaxy S20", Size = "6.7 inches", Cpu = "Exynos 2100", System = "Android", Storage = "512 GB", Img = "https://picsum.photos/200/300", Price = 1799.99m }
-            // Dodaj więcej smartfonów według potrzeb
+	protected override void OnInitialized()
+	{
+		// Inicjalizacja danych modelu - przykładowe smartfony
+		Model = new List<SmartphoneModel>
+		{
+			new SmartphoneModel { Id = 1, Name = "Samsung Galaxy A5", Size = "5.5 inches", Cpu = "Snapdragon 855", System = "Android", Storage = "128 GB", Img = "https://picsum.photos/200/300", Price = 999.99m },
+			new SmartphoneModel { Id = 2, Name = "Huawei 100", Size = "6.2 inches", Cpu = "Exynos 990", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1499.99m },
+			new SmartphoneModel { Id = 3, Name = "Apple iPhone 14 Pro", Size = "6.4 inches", Cpu = "Apple A14 Bionic", System = "iOS", Storage = "64 GB", Img = "https://picsum.photos/200/300", Price = 1299.99m },
+			new SmartphoneModel { Id = 4, Name = "Samsung Galaxy S21", Size = "6.1 inches", Cpu = "Snapdragon 888", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1399.99m },
+			new SmartphoneModel { Id = 5, Name = "Samsung Galaxy S20", Size = "6.7 inches", Cpu = "Exynos 2100", System = "Android", Storage = "512 GB", Img = "https://picsum.photos/200/300", Price = 1799.99m },
+			new SmartphoneModel { Id = 6, Name = "Huawei 5X", Size = "6.2 inches", Cpu = "Exynos 990", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1499.99m },
+			new SmartphoneModel { Id = 7, Name = "Apple iPhone 13 Pro", Size = "6.4 inches", Cpu = "Apple A13 Bionic", System = "iOS", Storage = "64 GB", Img = "https://picsum.photos/200/300", Price = 1299.99m },
+			new SmartphoneModel { Id = 8, Name = "Samsung Galaxy S11", Size = "6.1 inches", Cpu = "Snapdragon 777", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1399.99m },
+			new SmartphoneModel { Id = 9, Name = "Samsung Galaxy A15", Size = "6.7 inches", Cpu = "Exynos 1900", System = "Android", Storage = "256 GB", Img = "https://picsum.photos/200/300", Price = 1799.99m }
+
+			// Dodaj więcej smartfonów według potrzeb
         };
-    }
+	}
 
-    private IEnumerable<IEnumerable<SmartphoneModel>> Chunked(int size)
-    {
-        for (int i = 0; i < Model.Count; i += size)
-        {
-            yield return Model.Skip(i).Take(size);
-        }
-    }
+	private IEnumerable<IEnumerable<SmartphoneModel>> Chunked(int size)
+	{
+		for (int i = 0; i < Model.Count; i += size)
+		{
+			yield return Model.Skip(i).Take(size);
+		}
+	}
 }
