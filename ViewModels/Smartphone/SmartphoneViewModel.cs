@@ -1,17 +1,28 @@
 ﻿using GadgetBlitzPZ.Models.Smartphone;
+using GadgetBlitzPZ.Services.NavigationService;
+using GadgetBlitzPZ.Services.Smartphone;
+using GadgetBlitzPZ.ViewModels.Base;
 using System.Collections.ObjectModel;
 
 namespace GadgetBlitzPZ.ViewModels.Smartphone
 {
-    public class SmartphoneViewModel : ISmartphoneViewModel
+    public class SmartphoneViewModel : BaseViewModel, ISmartphoneViewModel
     {
-        private ObservableCollection<SmartphoneModel> _smartphones;
+        private readonly ISmartphoneService _smartphoneService;
+        public ObservableCollection<SmartphoneModel> Smartphones { get; set; } = new ObservableCollection<SmartphoneModel>();
 
-        public ObservableCollection<SmartphoneModel> Smartphones => _smartphones;
-
-        public void LoadSmartphones()
+        public SmartphoneViewModel(INavigationService navigationService, ISmartphoneService smartphonesService) : base(navigationService)
         {
-            // Wczytywanie z bazy
+            _smartphoneService = smartphonesService;
+            GetSmartphones();
+        }
+        public async Task GetSmartphones()
+        {
+            var smartphones = await _smartphoneService.GetSmartphonesAsync();
+            foreach (var smartphone in smartphones)
+            {
+                Smartphones.Add(smartphone);
+            }
         }
 
         public void AddSmartphone(SmartphoneModel smartphone)
