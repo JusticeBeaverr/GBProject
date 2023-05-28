@@ -7,7 +7,7 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
     {
         ObservableCollection<SmartphoneModel> Smartphones { get; set; }
         ObservableCollection<SmartphoneListModel> SmartphonesList { get; set; }
-		Task GetSmartphones();
+		Task GetSmartphones(string filter);
         Task GetSmartphoneById();
     }
 }

@@ -15,19 +15,14 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 		public SmartphoneViewModel(INavigationService navigationService, ISmartphoneService smartphonesService) : base(navigationService)
 		{
 			_smartphoneService = smartphonesService;
-			GetSmartphones();
 		}
-		public async Task GetSmartphones()
-		{
-			var smartphones = await _smartphoneService.GetSmartphonesAsync();
-			foreach (var smartphone in smartphones)
-			{
-				SmartphonesList.Add(smartphone);
-			}
-		}
+        public async Task GetSmartphones(string filter)
+        {
+            var smartphones = await _smartphoneService.GetSmartphonesAsync(filter);
+            SmartphonesList = new ObservableCollection<SmartphoneListModel>(smartphones);
+        }
 
-
-		public Task GetSmartphoneById()
+        public Task GetSmartphoneById()
 		{
 			throw new NotImplementedException();
 		}

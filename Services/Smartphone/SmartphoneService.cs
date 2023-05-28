@@ -28,11 +28,12 @@ namespace GadgetBlitzPZ.Services.Smartphone
             return smartphone;
         }
 
-        public async Task<List<SmartphoneListModel>> GetSmartphonesAsync()
+        public async Task<List<SmartphoneListModel>> GetSmartphonesAsync(string filter)
         {
+
             try
             {
-                var response = await _httpClient.GetStringAsync("phones");
+                var response = await _httpClient.GetStringAsync($"phones?{filter}");
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,

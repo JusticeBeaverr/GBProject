@@ -1,164 +1,204 @@
-﻿<Style></Style>
+﻿@inject ViewModels.Smartphone.ISmartphoneViewModel viewModel
+<Style></Style>
 
 <!-- Pasek z filtrowaniem wyników -->
 <div class="navbar navbar-expand-md navbar-light bg-light flex-md-column custom-shadow">
-    <ul class="navbar-nav flex-md-column">
-        <!-- Marka -->
-        <div class="form-group">
-            <label for="brand">Wybierz markę:</label>
-            <select class="form-control" id="brand" name="brand">
-                <option value="">- - -</option>
-                <option value="Samsung">Samsung</option>
-                <option value="Apple">Apple</option>
-                <option value="Xiaomi">Xiaomi</option>
-                <option value="Huawei">Huawei</option>
-                <option value="OPPO">OPPO</option>
-                <option value="Realme">Realme</option>
-            </select>
-        </div>
+	<ul class="navbar-nav flex-md-column">
+		<!-- Marka -->
+		<div class="form-group">
+			<label for="brand">Wybierz markę:</label>
+			<select class="form-control" id="brand" name="brand">
+				<option value="">- - -</option>
+				<option value="Samsung">Samsung</option>
+				<option value="Apple">Apple</option>
+				<option value="Xiaomi">Xiaomi</option>
+				<option value="Huawei">Huawei</option>
+				<option value="OPPO">OPPO</option>
+				<option value="Realme">Realme</option>
+			</select>
+		</div>
 
-        <!-- Wielkość ekranu -->
-        <li class="nav-item mt-2 mb-2">
-            <h5>Wielkość ekranu</h5>
-            <div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="screenSize1" value="5">
-                    <label class="form-check-label" for="screenSize1">
-                        5 cali
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="screenSize1" value="5.5">
-                    <label class="form-check-label" for="screenSize1">
-                        5.5 cala
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="screenSize3" value="6.2">
-                    <label class="form-check-label" for="screenSize3">
-                        6.2 cala
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="screenSize4" value="6.7">
-                    <label class="form-check-label" for="screenSize4">
-                        6.7 cala
-                    </label>
-                </div>
-                <!-- Dodaj więcej pól CheckBox dla innych opcji -->
-            </div>
-        </li>
-        <!-- Procesor -->
-        <li class="nav-item mt-2 mb-2">
-            <h5>Procesor</h5>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Intel Core i5" id="processor1">
-                <label class="form-check-label" for="processor1">
-                    Intel Core i5
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="AMD Ryzen 7" id="processor2">
-                <label class="form-check-label" for="processor2">
-                    AMD Ryzen 7
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Qualcomm Snapdragon 888" id="processor3">
-                <label class="form-check-label" for="processor3">
-                    Qualcomm Snapdragon 888
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Apple A14 Bionic" id="processor4">
-                <label class="form-check-label" for="processor4">
-                    Apple A14 Bionic
-                </label>
-            </div>
-            <!-- Dodaj więcej opcji procesorów -->
-        </li>
-        <!-- Pamięć masowa -->
-        <li class="nav-item mt-2 mb-2">
-            <h5>Pamięć masowa</h5>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="32GB" id="storage1">
-                <label class="form-check-label" for="storage1">
-                    32GB
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="64GB" id="storage2">
-                <label class="form-check-label" for="storage2">
-                    64GB
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="128GB" id="storage3">
-                <label class="form-check-label" for="storage3">
-                    128GB
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="256GB" id="storage4">
-                <label class="form-check-label" for="storage4">
-                    256GB
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="512GB" id="storage5">
-                <label class="form-check-label" for="storage5">
-                    512GB
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1TB" id="storage6">
-                <label class="form-check-label" for="storage6">
-                    1TB
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="2TB" id="storage7">
-                <label class="form-check-label" for="storage7">
-                    2TB
-                </label>
-            </div>
-            <!-- Dodaj więcej opcji pamięci masowej -->
-        </li>
-        <!-- System-->
-        <li class="nav-item mt-2 mb-2">
-            <h5>System operacyjny</h5>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Android" id="os1">
-                <label class="form-check-label" for="os1">
-                    Android
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="iOS" id="os2">
-                <label class="form-check-label" for="os2">
-                    iOS
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Inne" id="os3">
-                <label class="form-check-label" for="os3">
-                    Inne
-                </label>
-            </div>
-            <!-- Dodaj więcej opcji systemów operacyjnych -->
-        </li>
-        <!-- Zakres Cenowy -->
-        <li class="nav-item mt-2 mb-2">
-            <h5>Zakres cenowy</h5>
-            <div class="input-group">
-                <input type="number" class="form-control" id="minPrice" placeholder="Cena min">
-                <div class="input-group-text">do</div>
-                <input type="number" class="form-control" id="maxPrice" placeholder="Cena max">
-            </div>
-        </li>
+		<!-- Wielkość ekranu -->
+		<li class="nav-item mt-2 mb-2">
+			<h5>Wielkość ekranu</h5>
+			<div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="screenSize1" value="5" @bind="screenSizeChecked[0]">
+					<label class="form-check-label" for="screenSize1">
+						5 cali
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="screenSize1" value="5.5" @bind="screenSizeChecked[1]">
+					<label class="form-check-label" for="screenSize1">
+						5.5 cala
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="screenSize3" value="6.2" @bind="screenSizeChecked[2]">
+					<label class="form-check-label" for="screenSize3">
+						6.2 cala
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="screenSize4" value="6.7" @bind="screenSizeChecked[3]">
+					<label class="form-check-label" for="screenSize4">
+						6.7 cala
+					</label>
+				</div>
+				<!-- Dodaj więcej pól CheckBox dla innych opcji -->
+			</div>
+		</li>
+		<!-- Bateria -->
+		<li class="nav-item mt-2 mb-2">
+			<h5>Bateria</h5>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="0-2500" id="battery1" @bind="batteryChecked[0]">
+				<label class="form-check-label" for="battery1">
+					Do 2500 mAh
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="2500-3000" id="battery2" @bind="batteryChecked[1]">
+				<label class="form-check-label" for="battery2">
+					2500-3000
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="3000-4000" id="battery3" @bind="batteryChecked[2]">
+				<label class="form-check-label" for="battery3">
+					3000-4000
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="4000-5000" id="battery4" @bind="batteryChecked[3]">
+				<label class="form-check-label" for="battery4">
+					4000-5000
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="2500+" id="battery5" @bind="batteryChecked[4]">
+				<label class="form-check-label" for="battery5">
+					Powyżej 2500
+				</label>
+			</div>
+			<!-- Dodaj więcej opcji baterii -->
+		</li>
 
-        <!-- Dodaj więcej filtrów -->
-    </ul>
+		<!-- Pamięć masowa -->
+		<li class="nav-item mt-2 mb-2">
+			<h5>Pamięć masowa</h5>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="32GB" id="storage1" @bind="storageChecked[0]">
+				<label class="form-check-label" for="storage1">
+					32GB
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="64GB" id="storage2" @bind="storageChecked[1]">
+				<label class="form-check-label" for="storage2">
+					64GB
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="128GB" id="storage3" @bind="storageChecked[2]">
+				<label class="form-check-label" for="storage3">
+					128GB
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="256GB" id="storage4" @bind="storageChecked[3]">
+				<label class="form-check-label" for="storage4">
+					256GB
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="512GB" id="storage5" @bind="storageChecked[4]">
+				<label class="form-check-label" for="storage5">
+					512GB
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="1TB" id="storage6" @bind="storageChecked[5]">
+				<label class="form-check-label" for="storage6">
+					1TB
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="2TB" id="storage7" @bind="storageChecked[6]">
+				<label class="form-check-label" for="storage7">
+					2TB
+				</label>
+			</div>
+			<!-- Dodaj więcej opcji pamięci masowej -->
+		</li>
+		<!-- System-->
+		<li class="nav-item mt-2 mb-2">
+			<h5>System operacyjny</h5>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="Android" id="os1" @bind="osChecked[0]">
+				<label class="form-check-label" for="os1">
+					Android
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="iOS" id="os2" @bind="osChecked[1]">
+				<label class="form-check-label" for="os2">
+					iOS
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="Inne" id="os3" @bind="osChecked[2]">
+				<label class="form-check-label" for="os3">
+					Inne
+				</label>
+			</div>
+			<!-- Dodaj więcej opcji systemów operacyjnych -->
+		</li>
+		<!-- Zakres Cenowy -->
+		<li class="nav-item mt-2 mb-2">
+			<h5>Zakres cenowy</h5>
+			<div class="input-group">
+				<input type="number" class="form-control" id="minPrice" placeholder="Cena min" @bind="minPrice">
+				<div class="input-group-text">do</div>
+				<input type="number" class="form-control" id="maxPrice" placeholder="Cena max" @bind="maxPrice">
+			</div>
+		</li>
 
-    <button class="btn btn-primary btn-lg text-xl mt-4 mb-4" style="width: 80%;">Szukaj</button>
+		<!-- Dodaj więcej filtrów -->
+	</ul>
+	<button class="btn btn-secondary mt-1" style="width: 80%;" @onclick="ClearAll">Wyczyść wszystkie filtry</button>
+	<button class="btn btn-primary btn-lg text-xl mt-1 mb-1" style="width: 80%;" @onclick="RefreshPage">Szukaj</button>
 </div>
+
+@code {
+	private Smartphones smartphones;
+
+	private bool[] screenSizeChecked = new bool[7];
+	private bool[] batteryChecked = new bool[5]; 
+	private bool[] storageChecked = new bool[7]; 
+	private bool[] osChecked = new bool[3];
+	private int minPrice;
+	private int maxPrice;
+
+	private void ClearAll()
+	{
+		screenSizeChecked = new bool[7]; 
+		batteryChecked = new bool[5];
+		storageChecked = new bool[7];
+		osChecked = new bool[3];
+		minPrice = 0;
+		maxPrice = 0;
+	}
+
+	private async Task RefreshPage()
+	{
+		viewModel.SmartphonesList.Clear();
+		await viewModel.GetSmartphones("page=11");
+	}
+
+	private string FormatSearch()
+	{
+		return null;
+	}
+}
