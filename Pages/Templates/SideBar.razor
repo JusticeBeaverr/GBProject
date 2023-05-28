@@ -172,7 +172,7 @@
 </div>
 
 @code {
-	private Smartphones smartphones;
+	public event Func<Task> OnRefreshList;
 
 	private bool[] screenSizeChecked = new bool[7];
 	private bool[] batteryChecked = new bool[5]; 
@@ -191,9 +191,8 @@
 		maxPrice = 0;
 	}
 
-	private async Task RefreshPage()
+	public async Task RefreshPage()
 	{
-		viewModel.SmartphonesList.Clear();
 		await viewModel.GetSmartphones("page=11");
 	}
 

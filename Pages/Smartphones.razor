@@ -4,6 +4,7 @@
 @using System.Linq
 @using Blazorise.Bootstrap
 @using Blazorise.Icons.FontAwesome
+@using Microsoft.JSInterop
 
 @page "/smartphones"
 
@@ -86,7 +87,7 @@
 			}
 		</ul>
 
-		<button class="btn btn-primary btn-lg mb-1 text-xl" style="width: 12%;">Następna Strona</button>
+        <button class="btn btn-primary btn-lg mb-1 text-xl" style="width: 12%; ">Następna Strona</button>
 	</div>
 </div>
 
@@ -98,4 +99,8 @@
         await viewModel.GetSmartphones("page=15&size=6");
     }
 
+    public async Task RefreshList()
+    {
+        StateHasChanged();
+    }
 }
