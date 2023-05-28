@@ -9,7 +9,7 @@
 		public string system { get; set; }
 		public int storage { get; set; }
 		public List<string> urls { get; set; }
-		public double price { get; set; }
+		public double? price { get; set; }
 
 	}
 }

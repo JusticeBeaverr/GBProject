@@ -38,7 +38,8 @@ namespace GadgetBlitzPZ.Services.Smartphone
                     PropertyNameCaseInsensitive = true,
                     IncludeFields = true,
                 };
-                var smartphones = JsonSerializer.Deserialize<List<SmartphoneListModel>>(response, options);
+                var jsonObject = JsonDocument.Parse(response).RootElement;
+                var smartphones = JsonSerializer.Deserialize<List<SmartphoneListModel>>(jsonObject.GetProperty("content").ToString(), options);
                 return smartphones;
             }
             catch (Exception ex)
