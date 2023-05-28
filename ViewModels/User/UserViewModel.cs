@@ -16,7 +16,7 @@ namespace GadgetBlitzPZ.ViewModels.User
         {
             var test = new UserModel();
 
-            test.UserName = newUser.UserName;
+           
             test.Email = newUser.Email;
             test.Password = newUser.Password;
         }

@@ -67,40 +67,25 @@
             <Validations Mode="ValidationMode.Auto" Model="@viewModel.newUser"> 
                 <Validation>
                     <Field Horizontal>
-                        <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
+                        <FieldLabel ColumnSize="ColumnSize.Is2">First Name</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Placeholder="Enter email" @bind-Text="@viewModel.newUser.Email">
-                                <Feedback>
-                                    <ValidationError />
-                                </Feedback>
+                            <TextEdit Placeholder="Enter Last Name" @bind-Text="@viewModel.newUser.Name.First">
+                                
                             </TextEdit>
                         </FieldBody>
                     </Field>
                 </Validation>
                 <Validation>
                     <Field Horizontal>
-                        <FieldLabel ColumnSize="ColumnSize.Is2">Password</FieldLabel>
+                        <FieldLabel ColumnSize="ColumnSize.Is2">Last Name</FieldLabel>
                         <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Role="TextRole.Password" Placeholder="Password" @bind-Text="@viewModel.newUser.Password">
-                                <Feedback>
-                                    <ValidationError />
-                                </Feedback>
+                            <TextEdit Placeholder="Enter Last Name" @bind-Text="@viewModel.newUser.Name.First">
+                                
                             </TextEdit>
                         </FieldBody>
                     </Field>
                 </Validation>
-                <Validation>
-                    <Field Horizontal>
-                        <FieldLabel ColumnSize="ColumnSize.Is2">Re Password</FieldLabel>
-                        <FieldBody ColumnSize="ColumnSize.Is10">
-                            <TextEdit Role="TextRole.Password" Placeholder="Retype password" @bind-Text="@viewModel.newUser.ConfirmPassword">
-                                <Feedback>
-                                    <ValidationError />
-                                </Feedback>
-                            </TextEdit>
-                        </FieldBody>
-                    </Field>
-                </Validation>
+                
             </Validations>
         </ModalBody>
         <ModalFooter>

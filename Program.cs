@@ -19,6 +19,11 @@ builder.Services.AddScoped<ISmartphoneService, SmartphoneService>();
 builder.Services.AddScoped<ISmartphoneViewModel, SmartphoneViewModel>();
 builder.Services.AddScoped<IUserViewModel, UserViewModel>();
 
+builder.Services.AddHttpClient<ISmartphoneService, SmartphoneService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:8080/api/");
+});
+
 builder.Services
     .AddBlazorise(options =>
     {

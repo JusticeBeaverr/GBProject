@@ -25,19 +25,9 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
             }
         }
 
-        public void AddSmartphone(SmartphoneModel smartphone)
+        public Task GetSmartphoneById()
         {
-            // Dodawanie nowego smartfona
-        }
-
-        public void UpdateSmartphone(SmartphoneModel smartphone)
-        {
-            // Update info o smartfonie
-        }
-
-        public void DeleteSmartphone(int id)
-        {
-            // Usuwanie smartfona
+            throw new NotImplementedException();
         }
     }
 }
