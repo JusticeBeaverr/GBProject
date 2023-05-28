@@ -6,7 +6,8 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
     public interface ISmartphoneViewModel
     {
         ObservableCollection<SmartphoneModel> Smartphones { get; set; }
-        Task GetSmartphones();
+        ObservableCollection<SmartphoneListModel> SmartphonesList { get; set; }
+		Task GetSmartphones();
         Task GetSmartphoneById();
     }
 }

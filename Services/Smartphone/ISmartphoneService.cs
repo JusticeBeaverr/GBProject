@@ -4,7 +4,7 @@ namespace GadgetBlitzPZ.Services.Smartphone
 {
     public interface ISmartphoneService
     {
-        Task<List<SmartphoneModel>> GetSmartphonesAsync();
+        Task<List<SmartphoneListModel>> GetSmartphonesAsync();
         Task<SmartphoneModel> GetSmartphoneByIdAsync(string id);
     }
 }

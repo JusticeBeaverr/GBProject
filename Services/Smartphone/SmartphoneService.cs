@@ -28,7 +28,7 @@ namespace GadgetBlitzPZ.Services.Smartphone
             return smartphone;
         }
 
-        public async Task<List<SmartphoneModel>> GetSmartphonesAsync()
+        public async Task<List<SmartphoneListModel>> GetSmartphonesAsync()
         {
             try
             {
@@ -38,7 +38,7 @@ namespace GadgetBlitzPZ.Services.Smartphone
                     PropertyNameCaseInsensitive = true,
                     IncludeFields = true,
                 };
-                var smartphones = JsonSerializer.Deserialize<List<SmartphoneModel>>(response, options);
+                var smartphones = JsonSerializer.Deserialize<List<SmartphoneListModel>>(response, options);
                 return smartphones;
             }
             catch (Exception ex)

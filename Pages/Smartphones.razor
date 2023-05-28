@@ -4,8 +4,6 @@
 @using System.Linq
 @using Blazorise.Bootstrap
 @using Blazorise.Icons.FontAwesome
-﻿
-
 
 @page "/smartphones"
 
@@ -21,23 +19,23 @@
 		<div class="col-md-8">
 			<!-- Lista ze smartfonami -->
 			<div class="row">
-				@foreach (var smartphone in viewModel.Smartphones)
+				@foreach (var smartphone in viewModel.SmartphonesList)
 				{
 					<div class="col-md-4 mb-4">
 						<div class="card custom-shadow">
 							<div class="card-body d-flex flex-column justify-content-between h-100">
 								<div class="d-flex align-items-center">
 									<div class="mr-3">
-										<img src="@smartphone.Img" alt="Smartphone Image" style="width: 120px; height: 200px; border-radius: 3%;" />
+										<!-- <img src="@smartphone.Img" alt="Smartphone Image" style="width: 120px; height: 200px; border-radius: 3%;" />-->
 									</div>
 									<div class="card-body">
-										<h5 class="card-title">@smartphone.Name</h5>
+										<h5 class="card-title">@smartphone.name</h5>
 										<p class="card-text small">
-											<strong>Size:</strong> @smartphone.Size<br />
-											<strong>CPU:</strong> @smartphone.Cpu<br />
-											<strong>System:</strong> @smartphone.System<br />
-											<strong>Storage:</strong> @smartphone.Storage<br />
-											<strong>Price:</strong> @smartphone.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))
+											<strong>Size:</strong> @smartphone.size<br />
+											<strong>CPU:</strong> @smartphone.procesor<br />
+											<strong>System:</strong> @smartphone.system<br />
+											<strong>Storage:</strong> @smartphone.storage<br />
+											<strong>Price:</strong> @smartphone.price.ToString("C", new System.Globalization.CultureInfo("en-US"))
 										</p>
 									</div>
 								</div>
@@ -46,8 +44,8 @@
 								<div class="row align-items-center">
 									<div class="col-md-6">
 										<div class="form-check d-flex align-items-center">
-											<input class="form-check-input custom-checkbox mr-5" type="checkbox" id="compareCheckbox_@smartphone.Id" value="compare">
-											<label class="form-check-label font-weight-bold ml-2" for="compareCheckbox_@smartphone.Id">
+											<input class="form-check-input custom-checkbox mr-5" type="checkbox" id="compareCheckbox_@smartphone.id" value="compare">
+											<label class="form-check-label font-weight-bold ml-2" for="compareCheckbox_@smartphone.id">
 												Dodaj do porównania
 											</label>
 										</div>
@@ -95,20 +93,5 @@
 
 
 @code {
-	private bool showMoreBrands = false;
-	private int brandCount = 3;
 
-	private void ToggleShowMoreBrands()
-	{
-		showMoreBrands = !showMoreBrands;
-	}
-
-
-	private IEnumerable<IEnumerable<SmartphoneModel>> Chunked(int size)
-	{
-		for (int i = 0; i < viewModel.Smartphones.Count; i += size)
-		{
-			yield return viewModel.Smartphones.Skip(i).Take(size);
-		}
-	}
 }
