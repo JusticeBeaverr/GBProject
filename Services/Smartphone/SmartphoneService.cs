@@ -33,7 +33,7 @@ namespace GadgetBlitzPZ.Services.Smartphone
 
             try
             {
-                var response = await _httpClient.GetStringAsync($"phones?{filter}");
+                var response = await _httpClient.GetStringAsync(filter);
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true,

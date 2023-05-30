@@ -19,6 +19,7 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
         public async Task GetSmartphones(string filter)
         {
 			var smartphones = await _smartphoneService.GetSmartphonesAsync(filter);
+
             SmartphonesList = new ObservableCollection<SmartphoneListModel>(smartphones);
 		}
 

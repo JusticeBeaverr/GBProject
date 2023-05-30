@@ -15,53 +15,171 @@
 <div class="container-fluid mt-4 mb-4">
 	<div class="row">
 		<div class="col-md-2">
-			<SideBar></SideBar>
+			<!-- Pasek z filtrowaniem wyników -->
+			<div class="navbar navbar-expand-md navbar-light bg-light flex-md-column custom-shadow">
+				<ul class="navbar-nav flex-md-column">
+					<!-- Marka -->
+					<h5>Marka</h5>
+					<div>
+						@foreach (var brand in availableBrands)
+						{
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="@($"brand-{brand.Key}")" checked="@brandChecked[brand.Key]" @onchange="() => ToggleBrandSelection(brand.Value, brand.Key)" />
+								<label class="form-check-label" for="@($"brand-{brand.Key}")">
+									@brand.Value
+								</label>
+							</div>
+						}
+					</div>
+
+					<!-- Wielkość ekranu -->
+					<li class="nav-item mt-2 mb-2">
+						<h5>Wielkość ekranu</h5>
+						<div class="input-group">
+							<select class="form-select" id="sizeMin" @bind="sizeMin">
+								<option value="4">4"</option>
+								<option value="5">5"</option>
+								<option value="6">6"</option>
+								<option value="7">7"</option>
+								<option value="8">8"</option>
+							</select>
+							<div class="input-group-text">do</div>
+							<select class="form-select" id="sizeMax" @bind="sizeMax">
+								<option value="4">4"</option>
+								<option value="5">5"</option>
+								<option value="6">6"</option>
+								<option value="7">7"</option>
+								<option value="8">8"</option>
+							</select>
+						</div>
+					</li>
+					<!-- Bateria -->
+					<li class="nav-item mt-2 mb-2">
+						<h5>Pojemność baterii</h5>
+						<div class="input-group">
+							<select class="form-select" id="batteryMin" @bind="batteryMin">
+								<option value="1000">1000mAh</option>
+								<option value="2000">2000mAh</option>
+								<option value="3000">3000mAh</option>
+								<option value="4000">4000mAh</option>
+								<option value="5000">5000mAh</option>
+								<option value="6000">6000mAh</option>
+							</select>
+							<div class="input-group-text">do</div>
+							<select class="form-select" id="batteryMax" @bind="batteryMax">
+								<option value="1000">1000mAh</option>
+								<option value="2000">2000mAh</option>
+								<option value="3000">3000mAh</option>
+								<option value="4000">4000mAh</option>
+								<option value="5000">5000mAh</option>
+								<option value="6000">6000mAh</option>
+							</select>
+						</div>
+					</li>
+					<!-- Pamięć masowa -->
+					<li class="nav-item mt-2 mb-2">
+						<h5>Pamięć</h5>
+						<div class="input-group">
+							<select class="form-select" id="storageMin" @bind="storageMin">
+								<option value="16">16GB</option>
+								<option value="32">32GB</option>
+								<option value="64">64GB</option>
+								<option value="128">128GB</option>
+								<option value="256">256GB</option>
+								<option value="512">512GB</option>
+								<option value="1024">1TB</option>
+								<option value="2048">2TB</option>
+							</select>
+							<div class="input-group-text">do</div>
+							<select class="form-select" id="storageMax" @bind="storageMax">
+								<option value="16">16GB</option>
+								<option value="32">32GB</option>
+								<option value="64">64GB</option>
+								<option value="128">128GB</option>
+								<option value="256">256GB</option>
+								<option value="512">512GB</option>
+								<option value="1024">1TB</option>
+								<option value="2048">2TB</option>
+							</select>
+						</div>
+					</li>
+
+					<!-- System-->
+					<li class="nav-item mt-2 mb-2">
+						<h5>System operacyjny</h5>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Android" id="os1" @bind="osChecked[0]">
+							<label class="form-check-label" for="os1">
+								Android
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="iOS" id="os2" @bind="osChecked[1]">
+							<label class="form-check-label" for="os2">
+								iOS
+							</label>
+						</div>
+						<!-- Dodaj więcej opcji systemów operacyjnych -->
+					</li>
+					<li class="nav-item mt-2 mb-2">
+						<h5>Zakres cenowy</h5>
+						<div class="input-group">
+							<input type="number" class="form-control" id="minPrice" min="0" placeholder="zł" step="100" @bind="minPrice">
+							<div class="input-group-text">do</div>
+							<input type="number" class="form-control" id="maxPrice" min="@minPrice" placeholder="zł" step="100" @bind="maxPrice">
+						</div>
+					</li>
+					<!-- Dodaj więcej filtrów -->
+				</ul>
+				<button class="btn btn-secondary mt-1" style="width: 80%;" @onclick="ClearAll">Wyczyść wszystkie filtry</button>
+				<button class="btn btn-primary btn-lg text-xl mt-1 mb-1" style="width: 80%;" @onclick="LoadFilters">Szukaj</button>
+			</div>
 		</div>
-        <div class="col-md-8">
-            <!-- Lista ze smartfonami -->
-            <div class="row">
-                @foreach (var smartphone in viewModel.SmartphonesList)
-                {
-                    <div class="col-md-4 mb-4">
-                        <div class="card custom-shadow h-100 d-flex flex-column justify-content-between">
-                            <div class="card-body d-flex align-items-center">
-                                <div class="mr-3">
-                                    @if (smartphone.urls != null && smartphone.urls.Any())
-                                    {
-                                        <img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 170px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(1.1);" />
-                                    }
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">@smartphone.name</h5>
-                                    <p class="card-text small">
-                                        <strong>Ekran:</strong> @smartphone.size "<br />
-                                        <strong>Bateria:</strong> @smartphone.battery mAh<br />
-                                        <strong>System:</strong> @smartphone.system<br />
-                                        <strong>Pamięć:</strong> @smartphone.storage  GB<br />
-                                        <strong>Cena:</strong> @smartphone.price.ToString() zł
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row align-items-center">
-                                    <div class="col-md-6">
-                                        <div class="form-check d-flex align-items-center">
-                                            <input class="form-check-input custom-checkbox mr-5" type="checkbox" id="compareCheckbox_@smartphone.id" value="compare">
-                                            <label class="form-check-label font-weight-bold ml-2" for="compareCheckbox_@smartphone.id">
-                                                Dodaj do porównania
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 text-md-right">
-                                        <button class="btn btn-secondary btn-sm btn-lg mb-1" style="width: 100%;">Dane Techniczne </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
+		<div class="col-md-8">
+			<!-- Lista ze smartfonami -->
+			<div class="row">
+				@foreach (var smartphone in viewModel.SmartphonesList)
+				{
+					<div class="col-md-4 mb-4">
+						<div class="card custom-shadow h-100 d-flex flex-column justify-content-between">
+							<div class="card-body d-flex align-items-center">
+								<div class="mr-3">
+									@if (smartphone.urls != null && smartphone.urls.Any())
+									{
+										<img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 160px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(0.9);" />
+									}
+								</div>
+								<div class="card-body text-center">
+									<h5 class="card-title">@smartphone.name</h5>
+									<p class="card-text small">
+										<strong>Ekran:</strong> @smartphone.size "<br />
+										<strong>Bateria:</strong> @smartphone.battery mAh<br />
+										<strong>System:</strong> @smartphone.system<br />
+										<strong>Pamięć:</strong> @smartphone.storage  GB<br />
+										<strong>Cena:</strong> @(smartphone.price * 4.5) zł
+									</p>
+								</div>
+							</div>
+							<div class="card-footer">
+								<div class="row align-items-center">
+									<div class="col-md-6">
+										<div class="form-check d-flex align-items-center">
+											<input class="form-check-input custom-checkbox mr-5" type="checkbox" id="compareCheckbox_@smartphone.id" value="compare">
+											<label class="form-check-label font-weight-bold ml-2" for="compareCheckbox_@smartphone.id">
+												Dodaj do porównania
+											</label>
+										</div>
+									</div>
+									<div class="col-md-6 text-md-right">
+										<button class="btn btn-secondary btn-sm btn-lg mb-1" style="width: 100%;">Dane Techniczne </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
 
 		<div class="col-md-2">
 			<AdBar></AdBar>
@@ -69,38 +187,221 @@
 	</div>
 	<!-- Poprzednia i Nastepna strona-->
 	<div class="text-center d-flex justify-content-center align-items-bottom">
-		<button class="btn btn-secondary btn-lg mb-1 text-xl" style="width: 12%;">Poprzednia Strona</button>
+		<button class="btn btn-secondary btn-lg mb-1 mr-1 ml-1 text-xl" style="width: 12%;" @onclick="PrevPage" disabled="@isFirstPage">Poprzednia Strona</button>
 
-		<ul class="pagination d-flex ml-3 mr-3">
-			@for (int i = 1; i <= 87; i++)
+		<div style="width: 12%; max-width: 200px;">
+			@if (pageIndex == 1)
 			{
-				@if (i <= 3 || i == 87)
-				{
-					<li class="page-item">
-						<a class="page-link text-xl btn btn-light btn-lg" href="#">@i</a>
-					</li>
-				}
-				else if (i == 4)
-				{
-					<li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-				}
+				<span class="mr-2 ml-2" style="font-size: 16px;">-</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">-</span>
+				<span class="mr-2 ml-2" style="font-size: 36px;">@pageIndex</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex + 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 16px;">@(pageIndex + 2)</span>
 			}
-		</ul>
 
-        <button class="btn btn-primary btn-lg mb-1 text-xl" style="width: 12%; ">Następna Strona</button>
+			@if (pageIndex == 2)
+			{
+				<span class="mr-2 ml-2" style="font-size: 16px;">-</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex - 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 36px;">@pageIndex</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex + 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 16px;">@(pageIndex + 2)</span>
+			}
+
+			@if (pageIndex > 2 && pageIndex < 9)
+			{
+				<span class="mr-2 ml-2" style="font-size: 16px;">@(pageIndex - 2)</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex - 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 36px;">@pageIndex</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex + 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 16px;">@(pageIndex + 2)</span>
+			}
+
+			@if (pageIndex == 9)
+			{
+				<span class="mr-2 ml-2" style="font-size: 16px;">@(pageIndex - 2)</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex - 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 36px;">@pageIndex</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex + 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 16px;">-</span>
+			}
+
+			@if (pageIndex == 10)
+			{
+				<span class="mr-2 ml-2" style="font-size: 16px;">@(pageIndex - 2)</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">@(pageIndex - 1)</span>
+				<span class="mr-2 ml-2" style="font-size: 36px;">@pageIndex</span>
+				<span class="mr-2 ml-2" style="font-size: 24px;">-</span>
+				<span class="mr-2 ml-2" style="font-size: 16px;">-</span>
+			}
+
+		</div>
+
+
+		<button class="btn btn-primary btn-lg mb-1 mr-1 ml-1 text-xl" style="width: 12%;" @onclick="NextPage" disabled="@isLastPage">Następna Strona</button>
 	</div>
+
+
 </div>
 
 
 @code {
+	int pageIndex = 1;
+	public bool isFirstPage => pageIndex == 1;
+	public bool isLastPage => pageIndex == 10; // Add max page
 
-    protected override async Task OnInitializedAsync()
-    {
-        await viewModel.GetSmartphones("page=15&size=6");
-    }
+	Dictionary<int, string> availableBrands = new Dictionary<int, string>
+{
+	{ 0, "Apple" },
+	{ 1, "Samsung" },
+	{ 2, "Huawei" },
+	{ 3, "Xiaomi" },
+	{ 4, "OPPO" },
+	{ 5, "Motorola" },
+	{ 6, "Nokia" },
+};
+	List<string> selectedBrands = new List<string>();
+	private bool[] brandChecked = new bool[7];
 
-    public async Task RefreshList()
-    {
-        StateHasChanged();
-    }
+	private int sizeMin;
+	private int sizeMax;
+
+	private int batteryMin;
+	private int batteryMax;
+
+	private int storageMin;
+	private int storageMax;
+
+	private bool[] osChecked = new bool[3];
+
+	private int minPrice;
+	private int maxPrice;
+
+	string filterQuery = "phones?";
+
+	protected override async Task OnInitializedAsync()
+	{
+		selectedBrands.Clear();
+		await viewModel.GetSmartphones("phones?page=1&size=9");
+	}
+
+	private void ClearAll()
+	{
+		sizeMin = 0;
+		sizeMax = 0;
+
+		batteryMin = 0;
+		batteryMin = 0;
+
+		storageMin = 0;
+		storageMax = 0;
+
+		osChecked = new bool[3];
+
+		minPrice = 0;
+		maxPrice = 0;
+	}
+
+	private async Task LoadFilters()
+	{
+		filterQuery = "";
+
+		// Brand filter
+		if (selectedBrands.Count > 0)
+		{
+			string selectedBrandsQuery = string.Join(",", selectedBrands);
+			filterQuery += $"phones/search?brand={selectedBrandsQuery}" + LoadValues();
+		}
+		else
+		{
+			filterQuery += "phones/search?" + LoadValues().Substring(1);
+		}
+
+		await viewModel.GetSmartphones(filterQuery + "&size=9");
+		pageIndex = 1;
+		StateHasChanged();
+	}
+	private string LoadValues()
+	{
+		string final = "";
+		if (sizeMin != 0)
+		{
+			final += $"&sizeMin={sizeMin}";
+		}
+		if (sizeMax != 0)
+		{
+			final += $"&sizeMax={sizeMax}";
+		}
+		if (batteryMin != 0)
+		{
+			final += $"&batteryMin={batteryMin}";
+		}
+		if (batteryMax != 0)
+		{
+			final += $"&batteryMax={batteryMax}";
+		}
+		if (storageMin != 0)
+		{
+			final += $"&storageMin={storageMin}";
+		}
+		if (storageMax != 0)
+		{
+			final += $"&storageMax={storageMax}";
+		}
+
+		return final;
+	}
+
+	private void ToggleBrandSelection(string brandName, int brandKey)
+	{
+		brandChecked[brandKey] = !brandChecked[brandKey];
+
+		if (brandChecked[brandKey])
+		{
+			if (!selectedBrands.Contains(brandName))
+			{
+				selectedBrands.Add(brandName);
+			}
+		}
+		else
+		{
+			selectedBrands.Remove(brandName);
+		}
+	}
+
+
+
+	private async Task NextPage()
+	{
+		if (pageIndex < 10) // Add max page
+		{
+			string pageQuery = "";
+
+			pageIndex++;
+			pageQuery = "&size=9" + $"&page={pageIndex}";
+			await viewModel.GetSmartphones(filterQuery + pageQuery);
+			StateHasChanged();
+		}
+	}
+
+	private async Task PrevPage()
+	{
+		if (pageIndex > 1)
+		{
+			string pageQuery = "";
+
+			pageIndex--;
+			pageQuery = "&size=9" + $"&page={pageIndex}";
+			await viewModel.GetSmartphones(filterQuery + pageQuery);
+			StateHasChanged();
+		}
+	}
+
+	private void Swap<T>(ref T a, ref T b)
+	{
+		T temp = a;
+		a = b;
+		b = temp;
+	}
+
 }

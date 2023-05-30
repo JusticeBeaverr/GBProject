@@ -6,5 +6,5 @@ namespace GadgetBlitzPZ.Services.Smartphone
     {
         Task<List<SmartphoneListModel>> GetSmartphonesAsync(string filter);
         Task<SmartphoneModel> GetSmartphoneByIdAsync(string id);
-    }
+	}
 }
