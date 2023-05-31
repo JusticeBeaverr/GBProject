@@ -49,7 +49,28 @@ namespace GadgetBlitzPZ.Services.Smartphone
                 return null;
             }
         }
-    }
+		public async Task<int> GetPagesAsync(string filter)
+		{
+
+			try
+			{
+				var response = await _httpClient.GetStringAsync(filter);
+				var options = new JsonSerializerOptions
+				{
+					PropertyNameCaseInsensitive = true,
+					IncludeFields = true,
+				};
+				var jsonObject = JsonDocument.Parse(response).RootElement;
+				var totalPages = jsonObject.GetProperty("totalPages").GetInt32();
+				return totalPages;
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.Message);
+				return 0;
+			}
+		}
+	}
 
 }
 

@@ -11,6 +11,7 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 		private readonly ISmartphoneService _smartphoneService;
 		public ObservableCollection<SmartphoneModel> Smartphones { get; set; } = new ObservableCollection<SmartphoneModel>();
 		public ObservableCollection<SmartphoneListModel> SmartphonesList { get; set; } = new ObservableCollection<SmartphoneListModel>();
+		public int totalPages { get; set; } = 0;
 
 		public SmartphoneViewModel(INavigationService navigationService, ISmartphoneService smartphonesService) : base(navigationService)
 		{
@@ -30,7 +31,21 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 			}
 		}
 
-        public Task GetSmartphoneById()
+		public async Task GetPages(string filter)
+		{
+			var totalPagesCount = await _smartphoneService.GetPagesAsync(filter);
+
+			if (totalPagesCount != 0)
+			{
+				totalPages = totalPagesCount;
+			}
+			else
+			{
+				totalPages = 0;
+			}
+		}
+
+		public Task GetSmartphoneById()
 		{
 			throw new NotImplementedException();
 		}
