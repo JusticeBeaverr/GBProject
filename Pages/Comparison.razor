@@ -35,38 +35,41 @@
                 <th>Rozmiar</th>
                 @foreach (var smartphone in viewModel.SmartphonesComparisonList)
                 {
-                    <td>@smartphone.size</td>
+                    <td>@(smartphone.size.HasValue ? smartphone.size.Value.ToString() : "---")</td>
                 }
             </tr>
             <tr>
                 <th>Bateria</th>
                 @foreach (var smartphone in viewModel.SmartphonesComparisonList)
                 {
-                    <td>@smartphone.battery</td>
+                    <td>@(smartphone.battery.HasValue ? smartphone.battery.Value.ToString() : "---")</td>
                 }
             </tr>
             <tr>
                 <th>System</th>
                 @foreach (var smartphone in viewModel.SmartphonesComparisonList)
                 {
-                    <td>@smartphone.system</td>
+                    <td>@(smartphone.system ?? "---")</td>
                 }
             </tr>
             <tr>
                 <th>Pamięć</th>
                 @foreach (var smartphone in viewModel.SmartphonesComparisonList)
                 {
-                    <td>@smartphone.storage</td>
+                    <td>@(smartphone.storage.HasValue ? smartphone.storage.Value.ToString() : "---")</td>
                 }
             </tr>
             <tr>
                 <th>Cena</th>
                 @foreach (var smartphone in viewModel.SmartphonesComparisonList)
                 {
-                    <td>@smartphone.price</td>
+                    <td>@(smartphone.price.HasValue ? smartphone.price.Value.ToString() : "---")</td>
                 }
             </tr>
+            <!-- Można kopiować dalej te <tr></tr> --> 
         </tbody>
+
+
     </table>
 </div>
 
