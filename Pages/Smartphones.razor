@@ -2,7 +2,6 @@
 @using GadgetBlitzPZ.Models.Smartphone
 @using GadgetBlitzPZ.Pages.Templates
 @using System.Linq
-@using Blazorise.Bootstrap
 @using Blazorise.Icons.FontAwesome
 @using Microsoft.JSInterop
 
@@ -133,6 +132,34 @@
 				</ul>
 				<button class="btn btn-secondary mt-1 custom-shadow" style="width: 80%;" @onclick="ClearAll">Wyczyść wszystkie filtry</button>
 				<button class="btn btn-primary btn-lg text-xl mt-1 mb-1 custom-shadow" style="width: 80%;" @onclick="LoadFilters">Szukaj</button>
+
+				<Dropdown Class="mt-3 custom-shadow" Style="width: 80%;">
+					<DropdownToggle Color="Color.Dark" Style="width: 100%;">
+						Porównywarka (@viewModel.SmartphonesComparisonList.Count)
+					</DropdownToggle>
+					<DropdownMenu>
+						@foreach (var smartphone in viewModel.SmartphonesComparisonList)
+						{
+							<div class="d-flex align-items-center">
+								@if (smartphone.urls != null && smartphone.urls.Any())
+								{
+									<img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 60px; height: 60px; object-fit: cover; object-position: center; border-radius: 5%; margin-right: 2px;" />
+								}
+								else
+								{
+									<i class="fas fa-mobile-alt fa-3x" style="margin-right: 10px;"></i>
+								}
+								<span class="flex-grow-1">@smartphone.name</span>
+								<button class="btn btn-link" @onclick="() => viewModel.RemoveFromComparison(smartphone)">
+									<i class="fas fa-times"></i>
+								</button>
+							</div>
+						}
+					</DropdownMenu>
+				</Dropdown>
+
+
+
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -166,10 +193,18 @@
 									<div class="row align-items-center">
 										<div class="col-md-6">
 											<div class="form-check d-flex align-items-center">
-												<input class="form-check-input custom-checkbox mr-5" type="checkbox" id="compareCheckbox_@smartphone.id" value="compare">
-												<label class="form-check-label font-weight-bold ml-2" for="compareCheckbox_@smartphone.id">
-													Dodaj do porównania
-												</label>
+												@if (viewModel.SmartphonesComparisonList.Count < 3)
+												{
+													<button class="btn btn-outline-dark custom-shadow" @onclick="() => viewModel.AddToComparison(smartphone)">Dodaj do porównania</button>
+
+												}
+												else
+												{
+
+													<Tooltip Text="Dodano maksymalną ilość telefonów do porównywarki">
+														<button class="btn btn-outline-dark custom-shadow" disabled>Dodaj do porównania</button>
+													</Tooltip>
+												}
 											</div>
 										</div>
 										<div class="col-md-6 text-md-right">
@@ -213,13 +248,52 @@
 			<button class="btn btn-primary btn-lg mb-1 mr-1 ml-1 text-xl custom-shadow" style="width: 12%;" @onclick="NextPage" disabled="@isLastPage">Następna Strona</button>
 		</div>
 	}
-	
+
+	<Modal @ref="ComparisonAlert">
+		<ModalContent Centered>
+			<ModalHeader>
+				<ModalTitle>Sign Up</ModalTitle>
+				<CloseButton />
+			</ModalHeader>
+			<ModalBody>
+				<Validations Mode="ValidationMode.Auto">
+					<Validation>
+						<Field Horizontal>
+							<FieldLabel ColumnSize="ColumnSize.Is2">First Name</FieldLabel>
+							<FieldBody ColumnSize="ColumnSize.Is10">
+								<TextEdit Placeholder="Enter Last Name">
+
+								</TextEdit>
+							</FieldBody>
+						</Field>
+					</Validation>
+					<Validation>
+						<Field Horizontal>
+							<FieldLabel ColumnSize="ColumnSize.Is2">Last Name</FieldLabel>
+							<FieldBody ColumnSize="ColumnSize.Is10">
+								<TextEdit Placeholder="Enter Last Name">
+
+								</TextEdit>
+							</FieldBody>
+						</Field>
+					</Validation>
+
+				</Validations>
+			</ModalBody>
+			<ModalFooter>
+				<Button Color="Color.Secondary">Close</Button>
+			</ModalFooter>
+		</ModalContent>
+	</Modal>
 
 
 </div>
 
 
 @code {
+	private Modal ComparisonAlert;
+	int comparisonCount = 0;
+
 	int pageIndex = 1;
 	public bool isFirstPage => pageIndex == 1;
 	public bool isLastPage => pageIndex == viewModel.totalPages;
@@ -269,7 +343,7 @@
 		sizeMax = 0;
 
 		batteryMin = 0;
-		batteryMin = 0;
+		batteryMax = 0;
 
 		storageMin = 0;
 		storageMax = 0;
@@ -370,8 +444,6 @@
 		}
 	}
 
-
-
 	private async Task NextPage()
 	{
 		if (pageIndex < viewModel.totalPages) // Add max page
@@ -422,5 +494,10 @@
 		{
 			Swap(ref priceMin, ref priceMax);
 		}
+	}
+
+	private Task ShowComparisonAlert()
+	{
+		return ComparisonAlert.Show();
 	}
 }
