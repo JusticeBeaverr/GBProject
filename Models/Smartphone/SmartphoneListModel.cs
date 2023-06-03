@@ -11,5 +11,6 @@
 		public List<string>? urls { get; set; }
 		public double? price { get; set; }
 		public double? rating { get; set; }
+		public int ratingInt { get { return (int)rating; } set { rating = value; } }
 	}
 }
