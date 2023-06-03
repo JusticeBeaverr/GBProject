@@ -1,4 +1,5 @@
 ﻿@inject ViewModels.Smartphone.ISmartphoneViewModel viewModel
+@inject IJSRuntime JSRuntime
 @using GadgetBlitzPZ.Models.Smartphone
 @using GadgetBlitzPZ.Pages.Templates
 @using System.Linq
@@ -30,7 +31,11 @@
 							</div>
 						}
 					</div>
-
+					<!-- Wyszukiwanie -->
+					<li class="nav-item mt-2 mb-2">
+						<h5>Wyszukaj po nazwie</h5>
+						<TextEdit Placeholder="Nazwa smartfona..." @bind-Text="@searchByName" />
+					</li>
 					<!-- Wielkość ekranu -->
 					<li class="nav-item mt-2 mb-2">
 						<h5>Wielkość ekranu</h5>
@@ -162,66 +167,133 @@
 			<!-- Lista ze smartfonami -->
 			@if (viewModel.SmartphonesList != null)
 			{
-				<div class="row">
-					@foreach (var smartphone in viewModel.SmartphonesList)
-					{
-						<div class="col-md-4 mb-4">
-							<div class="card custom-shadow d-flex flex-column justify-content-between" style="height: 400px">
-								<div class="card-body d-flex align-items-center">
-									<div class="mr-3">
-										@if (smartphone.urls != null && smartphone.urls.Any())
-										{
-											<img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 160px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(0.9);" />
-										}
-									</div>
-									<div class="card-body text-center">
-										<h5 class="card-title">@smartphone.name</h5>
-										<p class="card-text small">
-											<strong>Ekran:</strong> @smartphone.size "<br />
-											<strong>Bateria:</strong> @smartphone.battery mAh<br />
-											<strong>System:</strong> @smartphone.system<br />
-											<strong>Pamięć:</strong> @smartphone.storage  GB<br />
-											<strong>Cena:</strong> @smartphone.price $
-										</p>
-									</div>
-								</div>
-								<div class="card-footer">
-									<div class="row align-items-center justify-content-center">
-										<div class="col-md-6 d-flex align-items-center justify-content-center">
+				@if (isCardAnimating)
+				{
+					<Animate Auto Animation="@cardAnimation" Duration="TimeSpan.FromMilliseconds(500)" IsManual="true">
+					<div class="row">
+						@foreach (var smartphone in viewModel.SmartphonesList)
+							{
+								<div class="col-md-4 mb-4">
+									<div class="card custom-shadow d-flex flex-column justify-content-between" style="height: 400px">
+										<div class="card-body d-flex align-items-center">
+											<div class="mr-3">
+												@if (smartphone.urls != null && smartphone.urls.Any())
+												{
+													<img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 160px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(0.9);" />
+												}
+											</div>
+											<div class="card-body text-center">
+												<h5 class="card-title">@smartphone.name</h5>
+												<p class="card-text small">
+													<strong>Ekran:</strong> @smartphone.size "<br />
+													<strong>Bateria:</strong> @smartphone.battery mAh<br />
+													<strong>System:</strong> @smartphone.system<br />
+													<strong>Pamięć:</strong> @smartphone.storage  GB<br />
+													<strong>Cena:</strong> @smartphone.price zł
+												</p>
+											</div>
+										</div>
+										<div class="card-footer">
 											<div class="row align-items-center justify-content-center">
-												<div class="col-md-12 mb-2 d-flex justify-content-center">
-													<div style="font-size: 26px;">
-														<Rating Color="Color.Primary" readonly @bind-SelectedValue="@smartphone.rating" MaxValue="6" />
+												<div class="col-md-6 d-flex align-items-center justify-content-center">
+													<div class="row align-items-center justify-content-center">
+														<div class="col-md-12 mb-2 d-flex justify-content-center">
+															<div style="font-size: 26px;">
+																<Rating Color="Color.Primary" readonly SelectedValue="4" MaxValue="6" />
+															</div>
+														</div>
+														<div class="col-md-12">
+															<div class="form-check d-flex align-items-center text-center pl-0">
+																@if (viewModel.SmartphonesComparisonList.Count < 3)
+																{
+																	<button class="btn btn-outline-dark custom-shadow ml-0" @onclick="() => viewModel.AddToComparison(smartphone)">Dodaj do porównania</button>
+																}
+																else
+																{
+																	<Tooltip Text="Dodano maksymalną ilość telefonów do porównywarki">
+																		<button class="btn btn-outline-dark custom-shadow" disabled>Dodaj do porównania</button>
+																	</Tooltip>
+																}
+															</div>
+														</div>
 													</div>
 												</div>
-												<div class="col-md-12">
-													<div class="form-check d-flex align-items-center text-center pl-0">
-														@if (viewModel.SmartphonesComparisonList.Count < 3)
-														{
-															<button class="btn btn-outline-dark custom-shadow ml-0" @onclick="() => viewModel.AddToComparison(smartphone)">Dodaj do porównania</button>
-														}
-														else
-														{
-															<Tooltip Text="Dodano maksymalną ilość telefonów do porównywarki">
-																<button class="btn btn-outline-dark custom-shadow" disabled>Dodaj do porównania</button>
-															</Tooltip>
-														}
+												<div class="col-md-6 d-flex align-items-center justify-content-center">
+													<NavLink class="btn btn-primary btn-md mb-1 font-weight-bold custom-shadow" href="@($"/smartphoneDetails/{smartphone.id}")">Dane Techniczne</NavLink>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+						</div>
+					</Animate>
+				}
+				else
+				{
+
+					<div class="row">
+						@foreach (var smartphone in viewModel.SmartphonesList)
+						{
+							<div class="col-md-4 mb-4">
+								<div class="card custom-shadow d-flex flex-column justify-content-between" style="height: 400px">
+									<div class="card-body d-flex align-items-center">
+										<div class="mr-3">
+											@if (smartphone.urls != null && smartphone.urls.Any())
+											{
+												<img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 160px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(0.9);" />
+											}
+										</div>
+										<div class="card-body text-center">
+											<h5 class="card-title">@smartphone.name</h5>
+											<p class="card-text small">
+												<strong>Ekran:</strong> @smartphone.size "<br />
+												<strong>Bateria:</strong> @smartphone.battery mAh<br />
+												<strong>System:</strong> @smartphone.system<br />
+												<strong>Pamięć:</strong> @smartphone.storage  GB<br />
+												<strong>Cena:</strong> @smartphone.price zł
+											</p>
+										</div>
+									</div>
+									<div class="card-footer">
+										<div class="row align-items-center justify-content-center">
+											<div class="col-md-6 d-flex align-items-center justify-content-center">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-12 mb-2 d-flex justify-content-center">
+														<div style="font-size: 26px;">
+															<Rating Color="Color.Primary" readonly SelectedValue="4" MaxValue="6" />
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-check d-flex align-items-center text-center pl-0">
+															@if (viewModel.SmartphonesComparisonList.Count < 3)
+															{
+																<button class="btn btn-outline-dark custom-shadow ml-0" @onclick="() => viewModel.AddToComparison(smartphone)">Dodaj do porównania</button>
+															}
+															else
+															{
+																<Tooltip Text="Dodano maksymalną ilość telefonów do porównywarki">
+																	<button class="btn btn-outline-dark custom-shadow" disabled>Dodaj do porównania</button>
+																</Tooltip>
+															}
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<div class="col-md-6 d-flex align-items-center justify-content-center">
-											<NavLink class="btn btn-primary btn-md mb-1 font-weight-bold custom-shadow" href="@($"/smartphoneDetails/{smartphone.id}")">Dane Techniczne</NavLink>
-										</div>
+											<div class="col-md-6 d-flex align-items-center justify-content-center">
+												<NavLink class="btn btn-primary btn-md mb-1 font-weight-bold custom-shadow" href="@($"/smartphoneDetails/{smartphone.id}")">Dane Techniczne</NavLink>
+											</div>
 
+										</div>
 									</div>
 								</div>
-
-
 							</div>
-						</div>
-					}
-				</div>
+						}
+					</div>
+
+				}
+
 			}
 			else
 			{
@@ -242,60 +314,24 @@
 		<div class="text-center d-flex justify-content-center align-items-center">
 			<button class="btn btn-secondary btn-lg mb-1 mr-1 ml-1 text-xl custom-shadow" style="width: 12%;" @onclick="PrevPage" disabled="@isFirstPage">Poprzednia Strona</button>
 			<div style="width: 12%; max-width: 200px;">
-				<span>Strona @pageIndex z @viewModel.totalPages</span>
+				<span>Strona @(pageIndex + 1) z @viewModel.totalPages</span>
 			</div>
 			<button class="btn btn-primary btn-lg mb-1 mr-1 ml-1 text-xl custom-shadow" style="width: 12%;" @onclick="NextPage" disabled="@isLastPage">Następna Strona</button>
 		</div>
 	}
 
-	<Modal @ref="ComparisonAlert">
-		<ModalContent Centered>
-			<ModalHeader>
-				<ModalTitle>Sign Up</ModalTitle>
-				<CloseButton />
-			</ModalHeader>
-			<ModalBody>
-				<Validations Mode="ValidationMode.Auto">
-					<Validation>
-						<Field Horizontal>
-							<FieldLabel ColumnSize="ColumnSize.Is2">First Name</FieldLabel>
-							<FieldBody ColumnSize="ColumnSize.Is10">
-								<TextEdit Placeholder="Enter Last Name">
-
-								</TextEdit>
-							</FieldBody>
-						</Field>
-					</Validation>
-					<Validation>
-						<Field Horizontal>
-							<FieldLabel ColumnSize="ColumnSize.Is2">Last Name</FieldLabel>
-							<FieldBody ColumnSize="ColumnSize.Is10">
-								<TextEdit Placeholder="Enter Last Name">
-
-								</TextEdit>
-							</FieldBody>
-						</Field>
-					</Validation>
-
-				</Validations>
-			</ModalBody>
-			<ModalFooter>
-				<Button Color="Color.Secondary">Close</Button>
-			</ModalFooter>
-		</ModalContent>
-	</Modal>
-
-
 </div>
 
 
 @code {
-	private Modal ComparisonAlert;
 	int comparisonCount = 0;
 
-	int pageIndex = 1;
-	public bool isFirstPage => pageIndex == 1;
-	public bool isLastPage => pageIndex == viewModel.totalPages;
+	private bool isCardAnimating = false;
+	private IAnimation cardAnimation;
+
+	int pageIndex = 0;
+	public bool isFirstPage => pageIndex == 0;
+	public bool isLastPage => pageIndex == (viewModel.totalPages - 1);
 
 	Dictionary<int, string> availableBrands = new Dictionary<int, string>
 {
@@ -307,9 +343,13 @@
 	{ 5, "Motorola" },
 	{ 6, "Nokia" },
 	{ 7, "Realme" },
+	{ 8, "OnePlus" },
+	{ 9, "Google" },
 };
 	List<string> selectedBrands = new List<string>();
-	private bool[] brandChecked = new bool[8];
+	private bool[] brandChecked = new bool[10];
+
+	private string searchByName = "";
 
 	private int sizeMin;
 	private int sizeMax;
@@ -333,13 +373,15 @@
 		await viewModel.GetSmartphones("phones");
 		await viewModel.GetPages("phones");
 		await InvokeAsync(StateHasChanged);
+		await CardAnimation(Animations.FadeIn);
 	}
 
 	private async Task ClearAll()
 	{
 		selectedBrands.Clear();
-		brandChecked = new bool[8];
-		filterQuery = "phones";
+		brandChecked = new bool[10];
+		searchByName = "";
+		filterQuery = "phones/search?";
 
 		sizeMin = 0;
 		sizeMax = 0;
@@ -355,9 +397,10 @@
 		priceMin = 0;
 		priceMax = 0;
 
-		await viewModel.GetSmartphones("phones");
-		await viewModel.GetPages("phones");
+		await viewModel.GetSmartphones("phones/search?");
+		await viewModel.GetPages("phones/search?");
 		await InvokeAsync(StateHasChanged);
+		await CardAnimation(Animations.FadeIn);
 	}
 
 	private async Task LoadFilters()
@@ -386,13 +429,18 @@
 
 		await viewModel.GetSmartphones(filterQuery + "&size=9");
 		await viewModel.GetPages(filterQuery);
-		pageIndex = 1;
+		pageIndex = 0;
 		await InvokeAsync(StateHasChanged);
+		await CardAnimation(Animations.FadeIn);
 	}
 	private string LoadValues()
 	{
 		string final = "";
 
+		if (searchByName != "")
+		{
+			final += $"&name={searchByName}";
+		}
 		if (sizeMin != 0)
 		{
 			final += $"&sizeMin={sizeMin}";
@@ -451,27 +499,29 @@
 
 	private async Task NextPage()
 	{
-		if (pageIndex < viewModel.totalPages) // Add max page
+		if (pageIndex < (viewModel.totalPages - 1))
 		{
 			string pageQuery = "";
 
 			pageIndex++;
 			pageQuery = "&size=9" + $"&page={pageIndex}";
 			await viewModel.GetSmartphones(filterQuery + pageQuery);
-			await InvokeAsync(StateHasChanged);
+
+			await CardAnimation(Animations.FadeIn);
 		}
 	}
 
 	private async Task PrevPage()
 	{
-		if (pageIndex > 1)
+		if (pageIndex > 0)
 		{
 			string pageQuery = "";
 
 			pageIndex--;
 			pageQuery = "&size=9" + $"&page={pageIndex}";
 			await viewModel.GetSmartphones(filterQuery + pageQuery);
-			await InvokeAsync(StateHasChanged);
+
+			await CardAnimation(Animations.FadeIn);
 		}
 	}
 
@@ -501,8 +551,13 @@
 		}
 	}
 
-	private Task ShowComparisonAlert()
+	private async Task CardAnimation(IAnimation animation)
 	{
-		return ComparisonAlert.Show();
+		cardAnimation = animation;
+		isCardAnimating = true;
+		await InvokeAsync(StateHasChanged);
+		isCardAnimating = false;
+		await Task.Delay(500);
+		await InvokeAsync(StateHasChanged);
 	}
 }
