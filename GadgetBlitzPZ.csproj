@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Media\ad1.gif" />
+    <None Include="wwwroot\Media\ad2.gif" />
+    <None Include="wwwroot\Media\ad3.gif" />
+    <None Include="wwwroot\Media\ad4.gif" />
+    <None Include="wwwroot\Media\ad5.gif" />
+    <None Include="wwwroot\Media\GadgetBlitzLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazorise.Animate" Version="1.2.3" />
     <PackageReference Include="Blazorise.Bootstrap" Version="1.2.3" />
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.2.3" />

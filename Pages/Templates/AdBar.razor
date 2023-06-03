@@ -1,20 +1,16 @@
-﻿<Style></Style>
+﻿@using System.Threading.Tasks
+@using System.IO
+@using System.Text.RegularExpressions
 
+<Style></Style>
 <!-- Gify reklamowe -->
-<div class="text-right">
-	<div class="advertisement mb-4">
-		<a href="https://fameable.com/wp-content/uploads/2015/08/trollface-trademarked-meme-1-1-1024x576.jpg" target="_blank">
-			<img class="custom-shadow" src="https://picsum.photos/250/250" alt="Reklama 1" />
-		</a>
-	</div>
-	<div class="advertisement mb-4">
-		<a href="https://fameable.com/wp-content/uploads/2015/08/trollface-trademarked-meme-1-1-1024x576.jpg" target="_blank">
-			<img class="custom-shadow" src="https://picsum.photos/250/310" alt="Reklama 2" />
-		</a>
-	</div>
-	<div class="advertisement mb-4">
-		<a href="https://fameable.com/wp-content/uploads/2015/08/trollface-trademarked-meme-1-1-1024x576.jpg" target="_blank">
-			<img class="custom-shadow" src="https://picsum.photos/250/220" alt="Reklama 3" />
-		</a>
-	</div>
+<div class="text-right justify-content-center align-items-center">
+    @foreach (var ad in ads)
+    {
+        <img class="mt-2 mb-2 custom-shadow border-3 border-dark"src="Media/@ad" alt="Ad" style="width: 300px;" />
+    }
 </div>
+
+@code {
+    private List<string> ads = new List<string> { "ad1.gif", "ad2.gif", "ad3.gif", "ad4.gif", "ad5.gif" };
+}
