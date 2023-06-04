@@ -9,7 +9,8 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 		ObservableCollection<SmartphoneListModel> SmartphonesList { get; set; }
 
 		ObservableCollection<SmartphoneListModel> SmartphonesComparisonList { get; set; }
-		int totalPages { get; set; }
+        ObservableCollection<SmartphoneModel> SmartphonesComparisonListComparsionView { get; set; }
+        int totalPages { get; set; }
 		Task GetSmartphones(string filter);
 		Task GetPages(string filter);
 		Task AddToComparison(SmartphoneListModel smartphone);

@@ -12,7 +12,8 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 		public ObservableCollection<SmartphoneModel> Smartphones { get; set; } = new ObservableCollection<SmartphoneModel>();
 		public ObservableCollection<SmartphoneListModel> SmartphonesList { get; set; } = new ObservableCollection<SmartphoneListModel>();
 		public ObservableCollection<SmartphoneListModel> SmartphonesComparisonList { get; set; } = new ObservableCollection<SmartphoneListModel>();
-		public int totalPages { get; set; } = 0;
+        public ObservableCollection<SmartphoneModel> SmartphonesComparisonListComparsionView { get; set; } = new ObservableCollection<SmartphoneModel>();
+        public int totalPages { get; set; } = 0;
 
 		public SmartphoneViewModel(INavigationService navigationService, ISmartphoneService smartphonesService) : base(navigationService)
 		{
@@ -48,9 +49,12 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 
 		public async Task AddToComparison(SmartphoneListModel smartphone)
 		{
+			var smarphoneWithDetails = new SmartphoneModel();
 			if (!SmartphonesComparisonList.Contains(smartphone))
 			{
 				SmartphonesComparisonList.Add(smartphone);
+				smarphoneWithDetails = await _smartphoneService.GetSmartphoneByIdAsync(smartphone.id);
+				SmartphonesComparisonListComparsionView.Add(smarphoneWithDetails);
 			}
 
 			if (SmartphonesComparisonList.Count > 3)

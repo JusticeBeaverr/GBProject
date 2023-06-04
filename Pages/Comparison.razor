@@ -16,58 +16,92 @@
         <thead>
             <tr>
                 <th></th>
-                @foreach (var smartphone in viewModel.SmartphonesComparisonList)
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
                 {
                     <th>
                         <div class="d-flex flex-column align-items-center">
-                            @if (smartphone.urls != null && smartphone.urls.Any())
+                            @if (smartphone.Urls != null && smartphone.Urls.Any())
                             {
-                                <img src="@smartphone.urls.First()" alt="Smartphone Image" style="width: 160px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(0.9);" />
+                                <img src="@smartphone.Urls.First()" alt="Smartphone Image" style="width: 160px; height: 200px; object-fit: cover; object-position: center; border-radius: 3%; transform: scale(0.9);" />
                             }
-                            <h5>@smartphone.name</h5>
+                            <h5>@smartphone.Name</h5>
                         </div>
                     </th>
                 }
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Rozmiar</th>
-                @foreach (var smartphone in viewModel.SmartphonesComparisonList)
-                {
-                    <td>@(smartphone.size.HasValue ? smartphone.size.Value.ToString() : "---")</td>
-                }
-            </tr>
-            <tr>
-                <th>Bateria</th>
-                @foreach (var smartphone in viewModel.SmartphonesComparisonList)
-                {
-                    <td>@(smartphone.battery.HasValue ? smartphone.battery.Value.ToString() : "---")</td>
-                }
-            </tr>
-            <tr>
-                <th>System</th>
-                @foreach (var smartphone in viewModel.SmartphonesComparisonList)
-                {
-                    <td>@(smartphone.system ?? "---")</td>
-                }
-            </tr>
-            <tr>
-                <th>Pamięć</th>
-                @foreach (var smartphone in viewModel.SmartphonesComparisonList)
-                {
-                    <td>@(smartphone.storage.HasValue ? smartphone.storage.Value.ToString() : "---")</td>
-                }
-            </tr>
-            <tr>
-                <th>Cena</th>
-                @foreach (var smartphone in viewModel.SmartphonesComparisonList)
-                {
-                    <td>@(smartphone.price.HasValue ? smartphone.price.Value.ToString() : "---")</td>
-                }
-            </tr>
-            <!-- Można kopiować dalej te <tr></tr> -->
-        </tbody>
+    <tr>
+        <th>Rozmiar</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Measurements.Width_mm.HasValue ? smartphone.Data.Measurements.Width_mm.Value.ToString() : "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Bateria</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Battery.Capacity__mAh.HasValue ? smartphone.Data.Battery.Capacity__mAh.Value : "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>System</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Software?.Os ?? "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Pamięć</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Storage.Capacity_gb.HasValue ? smartphone.Data.Storage.Capacity_gb.Value.ToString() : "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Cena</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Price.HasValue ? smartphone.Price.Value.ToString() : "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Aparat główny (MP)</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Camera.Camera_back__mp.HasValue ? smartphone.Data.Camera.Camera_back__mp.Value.ToString() : "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Pojemność RAM</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.General?.Brand ?? "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Typ wyświetlacza</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Display?.Type ?? "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Kolor</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Design?.Color ?? "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Waga</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Measurements.Weight_g.HasValue ? smartphone.Data.Measurements.Weight_g.Value.ToString() : "---")</td>
+        }
+    </tr>
+</tbody>
 
 
     </table>

@@ -24,7 +24,7 @@
                     <div class="card-body d-flex flex-column justify-content-between h-100">
                         <div class="d-flex align-items-center">
                             <div class="mr-3">
-                                <img src="@smartphone.Img" alt="Smartphone Image" style="width: 120px; height: 200px; border-radius: 3%;" />
+                              
                             </div>
                             <div class="card-body">
 										<h5 class="card-title">@smartphone.Name</h5>
@@ -33,7 +33,7 @@
 											<strong>CPU:</strong> @smartphone.Data.Cpu.Type<br />
 											<strong>System:</strong> @smartphone.Data.Software.Os<br />
 											<strong>Storage:</strong> @smartphone.Data.Storage.Capacity_gb<br />
-											<strong>Price:</strong> @smartphone.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))
+
 										</p>
 									</div>
                         </div>
@@ -58,7 +58,7 @@
     <TableBody>
         <TableRow>
             <TableRowHeader>Pojemność</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Battery.Capacity_mAh mAh</TableRowCell>
+       @*     <TableRowCell>@smartphone.Data.Battery.Capacity_mAh mAh</TableRowCell>
         </TableRow>
         <TableRow>
             <TableRowHeader>Ciągły czas odtwarzania dźwięku</TableRowHeader>
@@ -70,7 +70,7 @@
         </TableRow>
         <TableRow>
             <TableRowHeader>Technologia</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Battery.Technology</TableRowCell>
+            <TableRowCell>@smartphone.Data.Battery.Technology</TableRowCell>*@
         </TableRow>
     </TableBody>
     <TableHeader>
@@ -80,8 +80,8 @@
         </TableRow>
     </TableHeader>
     <TableBody>
-        <TableRow>
-            <TableRowHeader>Rozdzielczość tylnego aparatu</TableRowHeader>
+      
+         @*   <TableRowHeader>Rozdzielczość tylnego aparatu</TableRowHeader>
             <TableRowCell>@smartphone.Data.Camera.Camera_back_mp</TableRowCell>
         </TableRow>
         <TableRow>
@@ -91,7 +91,7 @@
         <TableRow>
             <TableRowHeader>Maksymalna liczba klatek na sekundę tylnego aparatu</TableRowHeader>
             <TableRowCell>@smartphone.Data.Camera.Camera_back_max_frame_rate_fps FPS</TableRowCell>
-        </TableRow>
+        </TableRow>*@
         <TableRow>
             <TableRowHeader>Typ lampy błyskowej tylnego aparatu</TableRowHeader>
             <TableRowCell>@smartphone.Data.Camera.Camera_back_type_flash</TableRowCell>
@@ -297,12 +297,7 @@
             <TableRowCell>@smartphone.Data.Network.Has_bluetooth</TableRowCell>
         </TableRow>
         <TableRow>
-            <TableRowHeader>Standardy 3G</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network._3g_standards</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Standardy 4G</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network._4g_standards</TableRowCell>
+
         </TableRow>
         <TableRow>
             <TableRowHeader>Typ karty SIM</TableRowHeader>
