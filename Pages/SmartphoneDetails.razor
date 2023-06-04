@@ -4,10 +4,11 @@
 @using System.Linq
 @using Blazorise.Bootstrap
 @using Blazorise.Icons.FontAwesome
+
 ﻿
 
 
-@page "/smartphonDetails"
+@page "/smartphoneDetails/{id}"
 
 <PageTitle>SmartphonDetails</PageTitle>
 
@@ -19,20 +20,25 @@
             <!-- Wyświetlanie danych jednego smartfona -->
             @if (viewModel.Smartphones.Any())
             {
-                var smartphone = viewModel.Smartphones.First();
+                var smartphone = viewModel.Smartphones.FirstOrDefault();
                 <div class="card custom-shadow">
                     <div class="card-body d-flex flex-column justify-content-between h-100">
                         <div class="d-flex align-items-center">
                             <div class="mr-3">
-                              
+                              @if (smartphone.Urls != null && smartphone.Urls.Any())
+													{
+														<Animate Auto Animation="Animations.ZoomIn" Duration="TimeSpan.FromMilliseconds(5000)">
+														<img src="@smartphone.Urls.First()" alt="Smartphone Image" style="max-width: 200px; max-height: 200px; object-fit: cover; object-position: center; border-radius: 3%;" />
+														</Animate>
+													}
                             </div>
                             <div class="card-body">
 										<h5 class="card-title">@smartphone.Name</h5>
 										<p class="card-text small">
-											<strong>Size:</strong> @smartphone.Data.Display.Size_inch<br />
-											<strong>CPU:</strong> @smartphone.Data.Cpu.Type<br />
+											<strong>Ekran:</strong> @smartphone.Data.Display.Size_inch<br />
+											<strong>Procesor:</strong> @smartphone.Data.Cpu.Type<br />
 											<strong>System:</strong> @smartphone.Data.Software.Os<br />
-											<strong>Storage:</strong> @smartphone.Data.Storage.Capacity_gb<br />
+											<strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity_gb<br />
 
 										</p>
 									</div>
@@ -48,282 +54,715 @@
                                     
                                 </div>
                             </div>
-                            <Table Striped>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Bateria</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Pojemność</TableRowHeader>
-       @*     <TableRowCell>@smartphone.Data.Battery.Capacity_mAh mAh</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Ciągły czas odtwarzania dźwięku</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Battery.Continuous_audio_playtime_h hours</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Ciągły czas odtwarzania wideo</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Battery.Continuous_video_playtime_h hours</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Technologia</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Battery.Technology</TableRowCell>*@
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Aparat</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-      
-         @*   <TableRowHeader>Rozdzielczość tylnego aparatu</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Camera.Camera_back_mp</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Rozdzielczość przedniego aparatu</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Camera.Camera_front_mp</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Maksymalna liczba klatek na sekundę tylnego aparatu</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Camera.Camera_back_max_frame_rate_fps FPS</TableRowCell>
-        </TableRow>*@
-        <TableRow>
-            <TableRowHeader>Typ lampy błyskowej tylnego aparatu</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Camera.Camera_back_type_flash</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Procesor</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Typ</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Cpu.Type</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Liczba rdzeni</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Cpu.Number_of_cores</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Design</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Kolor</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Design.Color</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Materiał</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Design.Material</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Wyświetlacz</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Typ</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Type</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Kształt</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Shape</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Rozmiar (cal)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Size_inch</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Stosunek kontrastu</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Contrast_ratio</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Jasność (cd/m²)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Brightness_cdm</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Ekran dotykowy</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Has_touchscreen</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Częstotliwość odświeżania (Hz)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Refresh_rate_hz</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Gęstość pikseli (ppi)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Pixel_density_ppi</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Rozdzielczość (piksele)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Resolution_pixels</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Odporność na odciski palców</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Fingerprint_resistant</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Odporność na zarysowania (Gorilla Glass)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Display.Has_gorilla_glass</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Informacje ogólne</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Marka</TableRowHeader>
-            <TableRowCell>@smartphone.Data.General.Brand</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Rok</TableRowHeader>
-            <TableRowCell>@smartphone.Data.General.Year</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Numer referencyjny MPN</TableRowHeader>
-            <TableRowCell>@smartphone.Data.General.Mpn</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Pomiary</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Wysokość (mm)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Measurements.Height_mm</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Długość (mm)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Measurements.Length_mm</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Szerokość (mm)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Measurements.Width_mm</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Waga (g)</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Measurements.Weight_g</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Nawigacja</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>GPS</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Navigation.Has_gps</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>A-GPS</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Navigation.Has_a_gps</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Beidou</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Navigation.Has_beidou</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Galileo</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Navigation.Has_galileo</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Glonass</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Navigation.Has_glonass</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Kompas elektroniczny</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Navigation.Has_electronic_compass</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Sieć</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>NFC</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_nfc</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>MIMO</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_mimo</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Wi-Fi</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_wifi</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>VoLTE</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_volte</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>AirPlay</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_airplay</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>iBeacon</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_ibeacon</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Dual SIM</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_dual_sim</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Bluetooth</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Has_bluetooth</TableRowCell>
-        </TableRow>
-        <TableRow>
-
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Typ karty SIM</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Type_sim_card</TableRowCell>
-        </TableRow>
-        <TableRow>
-            <TableRowHeader>Standardy Wi-Fi</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Network.Wifi_standards</TableRowCell>
-        </TableRow>
-    </TableBody>
-    <TableHeader>
-        <TableRow>
-            <TableHeaderCell>Pamięć</TableHeaderCell>
-            <TableHeaderCell></TableHeaderCell>
-        </TableRow>
-    </TableHeader>
-    <TableBody>
-        <TableRow>
-            <TableRowHeader>Pojemność pamięci wewnętrznej</TableRowHeader>
-            <TableRowCell>@smartphone.Data.Storage.Capacity_gb GB</TableRowCell>
-        </TableRow>
-    </TableBody>
-</Table>
 
 
-                            
+                                <!-- Wyświetlanie danych baterii -->
+                                @if (smartphone.Data.Battery != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Bateria</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Capacity__mAh nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Pojemność</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Battery.Capacity__mAh != null ? smartphone.Data.Battery.Capacity__mAh + " mAh" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Continuous_audio_playtime__h nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Ciągły czas odtwarzania dźwięku</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Battery.Continuous_audio_playtime__h != null ? smartphone.Data.Battery.Continuous_audio_playtime__h + " hours" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Continuous_video_playtime__h nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Ciągły czas odtwarzania wideo</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Battery.Continuous_video_playtime__h != null ? smartphone.Data.Battery.Continuous_video_playtime__h + " hours" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Technology nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Technologia</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Battery.Technology) ? "-" : smartphone.Data.Battery.Technology)</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <!-- Wyświetlanie danych aparatu -->
+                                @if (smartphone.Data.Camera != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Aparat</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Camera_back__mp nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Aparat tylny</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back__mp != null ? smartphone.Data.Camera.Camera_back__mp + " MP" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_front__mp nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Aparat przedni</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_front__mp != null ? smartphone.Data.Camera.Camera_front__mp + " MP" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_amount nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Ilość aparatów tylnych</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_amount != null ? smartphone.Data.Camera.Camera_back_amount.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_front_amount nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Ilość aparatów przednich</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_front_amount != null ? smartphone.Data.Camera.Camera_front_amount.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_digital_zoom nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Cyfrowe powiększenie (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_digital_zoom != null ? smartphone.Data.Camera.Camera_back_digital_zoom.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_max_frame_rate__fps nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Maksymalna liczba klatek na sekundę (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_max_frame_rate__fps != null ? smartphone.Data.Camera.Camera_back_max_frame_rate__fps.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_number_of_lens_elements nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Liczba elementów soczewki (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_number_of_lens_elements != null ? smartphone.Data.Camera.Camera_back_number_of_lens_elements.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_flash nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Lampa błyskowa (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_flash != null ? smartphone.Data.Camera.Camera_back_has_flash.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_panorama nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Tryb panoramy (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_panorama != null ? smartphone.Data.Camera.Camera_back_has_panorama.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_auto_focus nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Autofokus (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_auto_focus != null ? smartphone.Data.Camera.Camera_back_has_auto_focus.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_geotagging nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Geotagowanie (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_geotagging != null ? smartphone.Data.Camera.Camera_back_has_geotagging.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_night_mode nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Tryb nocny (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_night_mode != null ? smartphone.Data.Camera.Camera_back_has_night_mode.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_time_lapse_modus nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Tryb time-lapse (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_time_lapse_modus != null ? smartphone.Data.Camera.Camera_back_has_time_lapse_modus.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_has_video_stabilizer nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Stabilizację wideo (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back_has_video_stabilizer != null ? smartphone.Data.Camera.Camera_back_has_video_stabilizer.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_resolution nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Rozdzielczość (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Camera.Camera_back_resolution) ? "-" : smartphone.Data.Camera.Camera_back_resolution)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Camera_back_type_flash nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Typ lampy błyskowej (tylny)</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Camera.Camera_back_type_flash) ? "-" : smartphone.Data.Camera.Camera_back_type_flash)</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <!-- Wyświetlanie danych procesora -->
+                                @if (smartphone.Data.Cpu != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Procesor</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Type nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Typ</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Cpu.Type) ? "-" : smartphone.Data.Cpu.Type)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Number_of_cores nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Liczba rdzeni</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Cpu.Number_of_cores != null ? smartphone.Data.Cpu.Number_of_cores.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <!-- Wyświetlanie danych designu -->
+                                @if (smartphone.Data.Design != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Design</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Color nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Kolor</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Design.Color) ? "-" : smartphone.Data.Design.Color)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Material nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Materiał</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Design.Material) ? "-" : smartphone.Data.Design.Material)</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+                                <!-- Wyświetlanie danych wyświetlacza -->
+                                @if (smartphone.Data.Display != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Wyświetlacz</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Type nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Typ</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Type) ? "-" : smartphone.Data.Display.Type)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Shape nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Kształt</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Shape) ? "-" : smartphone.Data.Display.Shape)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Size__inch nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Rozmiar (cal)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Size_inch.HasValue ? smartphone.Data.Display.Size_inch.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Contrast_ratio nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Współczynnik kontrastu</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Contrast_ratio) ? "-" : smartphone.Data.Display.Contrast_ratio)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Brightness_cdm nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Jasność (cd/m²)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Brightness_cdm.HasValue ? smartphone.Data.Display.Brightness_cdm.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_touchscreen nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Ekran dotykowy</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Has_touchscreen.HasValue ? (smartphone.Data.Display.Has_touchscreen.Value ? "Tak" : "Nie") : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Refresh_rate_hz nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Częstotliwość odświeżania (Hz)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Refresh_rate_hz.HasValue ? smartphone.Data.Display.Refresh_rate_hz.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Pixel_density_ppi nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Gęstość pikseli (PPI)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Pixel_density_ppi.HasValue ? smartphone.Data.Display.Pixel_density_ppi.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Resolution_pixels nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Rozdzielczość pikseli</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Resolution_pixels) ? "-" : smartphone.Data.Display.Resolution_pixels)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Fingerprint_resistant nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Odporność na odciski palców</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Fingerprint_resistant.HasValue ? (smartphone.Data.Display.Fingerprint_resistant.Value ? "Tak" : "Nie") : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_gorilla_glass nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Gorilla Glass</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Display.Has_gorilla_glass.HasValue ? (smartphone.Data.Display.Has_gorilla_glass.Value ? "Tak" : "Nie") : "-")</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <!-- Wyświetlanie danych ogólnych -->
+                                @if (smartphone.Data.General != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Ogólne</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Brand nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Marka</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.General.Brand) ? "-" : smartphone.Data.General.Brand)</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Year nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Rok</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.General.Year.HasValue ? smartphone.Data.General.Year.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Mpn nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Mpn</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.General.Mpn) ? "-" : smartphone.Data.General.Mpn)</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Wyświetlanie danych pomiarowych -->
+                                @if (smartphone.Data.Measurements != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Pomiary</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Height_mm nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Wysokość (mm)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Height_mm.HasValue ? smartphone.Data.Measurements.Height_mm.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Length_mm nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Długość (mm)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Length_mm.HasValue ? smartphone.Data.Measurements.Length_mm.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Width_mm nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Szerokość (mm)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Width_mm.HasValue ? smartphone.Data.Measurements.Width_mm.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Weight_g nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Waga (g)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Weight_g.HasValue ? smartphone.Data.Measurements.Weight_g.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <!-- Wyświetlanie danych nawigacyjnych -->
+                                @if (smartphone.Data.Navigation != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Nawigacja</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Has_gps nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>GPS</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_gps.HasValue ? smartphone.Data.Navigation.Has_gps.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_a_gps nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>A-GPS</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_a_gps.HasValue ? smartphone.Data.Navigation.Has_a_gps.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_beidou nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>BeiDou</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_beidou.HasValue ? smartphone.Data.Navigation.Has_beidou.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_galileo nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Galileo</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_galileo.HasValue ? smartphone.Data.Navigation.Has_galileo.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_glonass nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>GLONASS</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_glonass.HasValue ? smartphone.Data.Navigation.Has_glonass.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_electronic_compass nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Kompas elektroniczny</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_electronic_compass.HasValue ? smartphone.Data.Navigation.Has_electronic_compass.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Wyświetlanie danych sieciowych -->
+                                @if (smartphone.Data.Network != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Sieć</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Has_nfc nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>NFC</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_nfc.HasValue ? smartphone.Data.Network.Has_nfc.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_mimo nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>MIMO</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_mimo.HasValue ? smartphone.Data.Network.Has_mimo.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_wifi nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>WiFi</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_wifi.HasValue ? smartphone.Data.Network.Has_wifi.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_volte nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>VoLTE</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_volte.HasValue ? smartphone.Data.Network.Has_volte.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_airplay nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>AirPlay</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_airplay.HasValue ? smartphone.Data.Network.Has_airplay.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_ibeacon nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>iBeacon</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_ibeacon.HasValue ? smartphone.Data.Network.Has_ibeacon.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_dual_sim nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Dual SIM</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_dual_sim.HasValue ? smartphone.Data.Network.Has_dual_sim.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_bluetooth nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Bluetooth</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Has_bluetooth.HasValue ? smartphone.Data.Network.Has_bluetooth.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Wyświetlanie wartości, jeśli nie są null -->
+                                                            @if (smartphone.Data.Network.Type_sim_card != null)
+                                                            {
+                                                                <TableRow>
+                                                                    <TableRowHeader>Typ karty SIM</TableRowHeader>
+                                                                    <TableRowCell>@smartphone.Data.Network.Type_sim_card</TableRowCell>
+                                                                </TableRow>
+                                                            }
+                                                            @if (smartphone.Data.Network.Wifi_standards != null)
+                                                            {
+                                                                <TableRow>
+                                                                    <TableRowHeader>Standardy WiFi</TableRowHeader>
+                                                                    <TableRowCell>@smartphone.Data.Network.Wifi_standards</TableRowCell>
+                                                                </TableRow>
+                                                            }
+                                                            @if (smartphone.Data.Network.Sim_card_capacity != null)
+                                                            {
+                                                                <TableRow>
+                                                                    <TableRowHeader>Pojemność karty SIM</TableRowHeader>
+                                                                    <TableRowCell>@smartphone.Data.Network.Sim_card_capacity</TableRowCell>
+                                                                </TableRow>
+                                                            }
+                                                            @if (smartphone.Data.Network.Generation_mobile_network != null)
+                                                            {
+                                                                <TableRow>
+                                                                    <TableRowHeader>Generacja sieci mobilnej</TableRowHeader>
+                                                                    <TableRowCell>@smartphone.Data.Network.Generation_mobile_network</TableRowCell>
+                                                                </TableRow>
+                                                            }
+                                                            @if (smartphone.Data.Network.Bluetooth_version.HasValue)
+                                                            {
+                                                                <TableRow>
+                                                                    <TableRowHeader>Wersja Bluetooth</TableRowHeader>
+                                                                    <TableRowCell>@(smartphone.Data.Network.Bluetooth_version.HasValue ? smartphone.Data.Network.Bluetooth_version.Value.ToString() : "-")</TableRowCell>
+                                                                </TableRow>
+                                                            }
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                               <!-- Porty i Interfejsy -->
+                                @if (smartphone.Data.PortsInterfaces != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Porty i interfejsy</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Has_lightning_connector nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Posiada złącze Lightning</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.PortsInterfaces.Has_lightning_connector.HasValue ? smartphone.Data.PortsInterfaces.Has_lightning_connector.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_usb nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Posiada USB</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.PortsInterfaces.Has_usb.HasValue ? smartphone.Data.PortsInterfaces.Has_usb.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Type_of_connector nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Typ złącza</TableRowHeader>
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.PortsInterfaces.Type_of_connector) ? "-" : smartphone.Data.PortsInterfaces.Type_of_connector)</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Sensors -->
+                                @if (smartphone.Data.Sensors != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Sensory</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Has_barometer nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Barometr</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Sensors.Has_barometer.HasValue ? smartphone.Data.Sensors.Has_barometer.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_gyroscope nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Gyroskop</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Sensors.Has_gyroscope.HasValue ? smartphone.Data.Sensors.Has_gyroscope.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_accelerometer nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Akcelerometr</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Sensors.Has_accelerometer.HasValue ? smartphone.Data.Sensors.Has_accelerometer.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_proximity_sensor nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Czujnik zbliżeniowy</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Sensors.Has_proximity_sensor.HasValue ? smartphone.Data.Sensors.Has_proximity_sensor.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                            <!-- Sprawdź, czy Has_ambient_light_sensor nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Czujnik światła otoczenia</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Sensors.Has_ambient_light_sensor.HasValue ? smartphone.Data.Sensors.Has_ambient_light_sensor.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Oprgramowanie -->
+                                @if (!string.IsNullOrEmpty(smartphone.Data.Software?.Os))
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Oprogramowanie</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableRowHeader>System operacyjny</TableRowHeader>
+                                                                <TableRowCell>@smartphone.Data.Software.Os</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <!-- Pamięć -->
+                                @if (smartphone.Data.Storage != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="card-body d-flex flex-column justify-content-between h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3">
+                                                </div>
+                                                <div class="card-body">
+                                                    <Table Striped>
+                                                        <TableHeader>
+                                                            <TableRow>
+                                                                <TableHeaderCell>Pamięć</TableHeaderCell>
+                                                                <TableHeaderCell></TableHeaderCell>
+                                                            </TableRow>
+                                                        </TableHeader>
+                                                        <TableBody>
+                                                            <!-- Sprawdź, czy Capacity_gb nie jest null -->
+                                                            <TableRow>
+                                                                <TableRowHeader>Pojemność</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Storage.Capacity_gb.HasValue ? smartphone.Data.Storage.Capacity_gb.ToString() : "-") GB</TableRowCell>
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                                <!-- Opinie -->
+  
+
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -341,20 +780,12 @@
 
 
 @code {
-	private bool showMoreBrands = false;
-	private int brandCount = 3;
-
-	private void ToggleShowMoreBrands()
-	{
-		showMoreBrands = !showMoreBrands;
-	}
+	 [Parameter]
+    public string id { get; set; }
 
 
-	private IEnumerable<IEnumerable<SmartphoneModel>> Chunked(int size)
-	{
-		for (int i = 0; i < viewModel.Smartphones.Count; i += size)
-		{
-			yield return viewModel.Smartphones.Skip(i).Take(size);
-		}
-	}
+    protected override async Task OnParametersSetAsync()
+    {
+        await viewModel.GetSmartphoneById(id);
+    }
 }

@@ -15,7 +15,7 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 		Task GetPages(string filter);
 		Task AddToComparison(SmartphoneListModel smartphone);
 		Task RemoveFromComparison(SmartphoneListModel smartphone);
-		Task GetSmartphoneById();
+		Task GetSmartphoneById(string id);
 
 	}
 }

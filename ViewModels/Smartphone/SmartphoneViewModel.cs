@@ -3,12 +3,15 @@ using GadgetBlitzPZ.Services.NavigationService;
 using GadgetBlitzPZ.Services.Smartphone;
 using GadgetBlitzPZ.ViewModels.Base;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+
 
 namespace GadgetBlitzPZ.ViewModels.Smartphone
 {
 	public class SmartphoneViewModel : BaseViewModel, ISmartphoneViewModel
 	{
 		private readonly ISmartphoneService _smartphoneService;
+		
 		public ObservableCollection<SmartphoneModel> Smartphones { get; set; } = new ObservableCollection<SmartphoneModel>();
 		public ObservableCollection<SmartphoneListModel> SmartphonesList { get; set; } = new ObservableCollection<SmartphoneListModel>();
 		public ObservableCollection<SmartphoneListModel> SmartphonesComparisonList { get; set; } = new ObservableCollection<SmartphoneListModel>();
@@ -68,9 +71,20 @@ namespace GadgetBlitzPZ.ViewModels.Smartphone
 			SmartphonesComparisonList.Remove(smartphone);
 		}
 
-		public Task GetSmartphoneById()
+		public async Task GetSmartphoneById(string id)
 		{
-			throw new NotImplementedException();
+			var smartphone = await _smartphoneService.GetSmartphoneByIdAsync(id);
+
+			if (smartphone != null)
+			{
+				Smartphones.Clear();
+				Smartphones.Add(smartphone);
+			}
+			else
+			{
+				Smartphones.Clear();
+			}
 		}
+
 	}
 }
