@@ -40,8 +40,8 @@
         </ModalHeader>
         <ModalBody>
             <Field>
-                <FieldLabel>Email</FieldLabel>
-                <TextEdit Placeholder="Enter email" @bind-Text="@viewModel.newUser.Email">
+                <FieldLabel>Username</FieldLabel>
+                <TextEdit Placeholder="Enter Username" @bind-Text="@viewModel.newUser.Email">
                 </TextEdit>
             </Field>
             <Field>
@@ -94,7 +94,18 @@
         </ModalFooter>
     </ModalContent>
 </Modal>
+
+<Alert Color="Color.Danger" @bind-Visible="@visible">
+    <AlertDescription>
+        Błędne dane
+    </AlertDescription>
+    <AlertMessage>
+        
+    </AlertMessage>
+    <CloseButton />
+</Alert>
 @code{
+    bool visible = false;
     // reference to the modal component
     private Modal RegisterForm;
     private Modal LoginForm;
@@ -127,7 +138,16 @@
 
     private Task LoginUser()
     {
-        viewModel.Login();
-        return LoginForm.Hide();
+        if (viewModel.newUser.Email != "damian69" &&
+       viewModel.newUser.Email != "szymon420" &&
+       viewModel.newUser.Email != "mariusz2137")
+        {
+            // Wywołanie funkcji obsługującej błąd, np. wyświetlenie komunikatu o błędzie
+            visible = true;
+            return Task.CompletedTask;
+    }
+
+    viewModel.Login();
+    return LoginForm.Hide();
     }
 }
