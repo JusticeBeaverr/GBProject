@@ -7,5 +7,6 @@ namespace GadgetBlitzPZ.Services.Smartphone
         Task<List<SmartphoneListModel>> GetSmartphonesAsync(string filter);
         Task<int> GetPagesAsync(string filter);
         Task<SmartphoneModel> GetSmartphoneByIdAsync(string id);
+        Task AddOpinion(AddOpinionCommand command);
 	}
 }

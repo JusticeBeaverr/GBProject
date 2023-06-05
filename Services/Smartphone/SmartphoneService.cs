@@ -1,5 +1,6 @@
 ﻿using GadgetBlitzPZ.Models.Smartphone;
 using System.Diagnostics;
+using System.Text;
 using System.Text.Json;
 
 namespace GadgetBlitzPZ.Services.Smartphone
@@ -70,7 +71,19 @@ namespace GadgetBlitzPZ.Services.Smartphone
 				return 0;
 			}
 		}
-	}
+
+        public async Task AddOpinion(AddOpinionCommand command)
+        {
+            var test = new OpinionModel();
+            test.Content = command.Opinion.Content;
+            test.Rating = command.Opinion.Rating;
+            test.User = command.Opinion.User;
+            var json = JsonSerializer.Serialize(test);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync($"phones/{command.SmartphoneId}", content);
+        }
+    }
 
 }
 

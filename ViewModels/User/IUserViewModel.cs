@@ -8,5 +8,6 @@ namespace GadgetBlitzPZ.ViewModels.User
 
         Task Registration();
         Task Login();
+        string Username { get; set; }
     }
 }

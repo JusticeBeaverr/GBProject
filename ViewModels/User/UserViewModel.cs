@@ -11,6 +11,7 @@ namespace GadgetBlitzPZ.ViewModels.User
         }
 
         public UserModel newUser { get; set; } = new UserModel();
+        public string Username { get; set; }
 
         public async Task Registration()
         {
@@ -24,7 +25,7 @@ namespace GadgetBlitzPZ.ViewModels.User
         public async Task Login()
         {
             var test = new UserModel();
-            test.Email = newUser.Email;
+            Username = newUser.Email;
             test.Password = newUser.Password;
         }
     }

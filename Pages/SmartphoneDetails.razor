@@ -1,4 +1,6 @@
 @inject ViewModels.Smartphone.ISmartphoneViewModel viewModel
+@inject ViewModels.User.IUserViewModel viewModel2
+@inject Services.Smartphone.ISmartphoneService service
 @using GadgetBlitzPZ.Models.Smartphone
 @using GadgetBlitzPZ.Pages.Templates
 @using System.Linq
@@ -27,23 +29,23 @@
                     <div class="card-body d-flex flex-column justify-content-between h-100">
                         <div class="d-flex align-items-center">
                             <div class="mr-3">
-                              @if (smartphone.Urls != null && smartphone.Urls.Any())
-													{
-														<Animate Auto Animation="Animations.ZoomIn" Duration="TimeSpan.FromMilliseconds(5000)">
-														<img src="@smartphone.Urls.First()" alt="Smartphone Image" style="max-width: 200px; max-height: 200px; object-fit: cover; object-position: center; border-radius: 3%;" />
-														</Animate>
-													}
+                                @if (smartphone.Urls != null && smartphone.Urls.Any())
+                                {
+                                    <Animate Auto Animation="Animations.ZoomIn" Duration="TimeSpan.FromMilliseconds(5000)">
+                                        <img src="@smartphone.Urls.First()" alt="Smartphone Image" style="max-width: 200px; max-height: 200px; object-fit: cover; object-position: center; border-radius: 3%;" />
+                                    </Animate>
+                                }
                             </div>
                             <div class="card-body">
-										<h5 class="card-title">@smartphone.Name</h5>
-										<p class="card-text small">
-											<strong>Ekran:</strong> @smartphone.Data.Display.Size__inch<br />
-											<strong>Procesor:</strong> @smartphone.Data.Cpu.Type<br />
-											<strong>System:</strong> @smartphone.Data.Software.Os<br />
-											<strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity__gb<br />
+                                <h5 class="card-title">@smartphone.Name</h5>
+                                <p class="card-text small">
+                                    <strong>Ekran:</strong> @smartphone.Data.Display.Size__inch<br />
+                                    <strong>Procesor:</strong> @smartphone.Data.Cpu.Type<br />
+                                    <strong>System:</strong> @smartphone.Data.Software.Os<br />
+                                    <strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity__gb<br />
 
-										</p>
-									</div>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <!-- Wyświetlanie danych jednego smartfona -->
@@ -53,32 +55,31 @@
                                 <div class="mr-3">
                                 </div>
                                 <div class="card-body">
-                                    
                                 </div>
                             </div>
 
 
-                                <!-- Wyświetlanie danych baterii -->
-                                @if (smartphone.Data.Battery != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Bateria</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Capacity__mAh nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Pojemność</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Battery.Capacity__mAh != null ? smartphone.Data.Battery.Capacity__mAh + " mAh" : "-")</TableRowCell>
+                            <!-- Wyświetlanie danych baterii -->
+                            @if (smartphone.Data.Battery != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Bateria</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Capacity__mAh nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Pojemność</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Battery.Capacity__mAh != null ? smartphone.Data.Battery.Capacity__mAh + " mAh" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Continuous_audio_playtime__h nie jest null -->
                                                             <TableRow>
@@ -101,30 +102,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
 
-                                <!-- Wyświetlanie danych aparatu -->
-                                @if (smartphone.Data.Camera != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Aparat</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Camera_back__mp nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Aparat tylny</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Camera.Camera_back__mp != null ? smartphone.Data.Camera.Camera_back__mp + " MP" : "-")</TableRowCell>
+                            <!-- Wyświetlanie danych aparatu -->
+                            @if (smartphone.Data.Camera != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Aparat</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Camera_back__mp nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Aparat tylny</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Camera.Camera_back__mp != null ? smartphone.Data.Camera.Camera_back__mp + " MP" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Camera_front__mp nie jest null -->
                                                             <TableRow>
@@ -207,30 +208,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
 
-                                <!-- Wyświetlanie danych procesora -->
-                                @if (smartphone.Data.Cpu != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Procesor</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Type nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Typ</TableRowHeader>
-                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Cpu.Type) ? "-" : smartphone.Data.Cpu.Type)</TableRowCell>
+                            <!-- Wyświetlanie danych procesora -->
+                            @if (smartphone.Data.Cpu != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Procesor</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Type nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Typ</TableRowHeader>
+                                                            <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Cpu.Type) ? "-" : smartphone.Data.Cpu.Type)</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Number_of_cores nie jest null -->
                                                             <TableRow>
@@ -243,30 +244,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
 
-                                <!-- Wyświetlanie danych designu -->
-                                @if (smartphone.Data.Design != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Design</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Color nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Kolor</TableRowHeader>
-                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Design.Color) ? "-" : smartphone.Data.Design.Color)</TableRowCell>
+                            <!-- Wyświetlanie danych designu -->
+                            @if (smartphone.Data.Design != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Design</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Color nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Kolor</TableRowHeader>
+                                                            <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Design.Color) ? "-" : smartphone.Data.Design.Color)</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Material nie jest null -->
                                                             <TableRow>
@@ -279,31 +280,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
 
 
-                                <!-- Wyświetlanie danych wyświetlacza -->
-                                @if (smartphone.Data.Display != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Wyświetlacz</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Type nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Typ</TableRowHeader>
-                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Type) ? "-" : smartphone.Data.Display.Type)</TableRowCell>
+                            <!-- Wyświetlanie danych wyświetlacza -->
+                            @if (smartphone.Data.Display != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Wyświetlacz</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Type nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Typ</TableRowHeader>
+                                                            <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Type) ? "-" : smartphone.Data.Display.Type)</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Shape nie jest null -->
                                                             <TableRow>
@@ -361,30 +362,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
 
-                                <!-- Wyświetlanie danych ogólnych -->
-                                @if (smartphone.Data.General != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Ogólne</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Brand nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Marka</TableRowHeader>
-                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.General.Brand) ? "-" : smartphone.Data.General.Brand)</TableRowCell>
+                            <!-- Wyświetlanie danych ogólnych -->
+                            @if (smartphone.Data.General != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Ogólne</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Brand nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Marka</TableRowHeader>
+                                                            <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.General.Brand) ? "-" : smartphone.Data.General.Brand)</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Year nie jest null -->
                                                             <TableRow>
@@ -402,29 +403,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
-                                <!-- Wyświetlanie danych pomiarowych -->
-                                @if (smartphone.Data.Measurements != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Pomiary</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Height_mm nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Wysokość (mm)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Measurements.Height__mm.HasValue ? smartphone.Data.Measurements.Height__mm.Value.ToString() : "-")</TableRowCell>
+                            <!-- Wyświetlanie danych pomiarowych -->
+                            @if (smartphone.Data.Measurements != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Pomiary</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Height_mm nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Wysokość (mm)</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Measurements.Height__mm.HasValue ? smartphone.Data.Measurements.Height__mm.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Length_mm nie jest null -->
                                                             <TableRow>
@@ -447,30 +448,30 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
 
-                                <!-- Wyświetlanie danych nawigacyjnych -->
-                                @if (smartphone.Data.Navigation != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Nawigacja</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Has_gps nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>GPS</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Navigation.Has_gps.HasValue ? smartphone.Data.Navigation.Has_gps.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                            <!-- Wyświetlanie danych nawigacyjnych -->
+                            @if (smartphone.Data.Navigation != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Nawigacja</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Has_gps nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>GPS</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Navigation.Has_gps.HasValue ? smartphone.Data.Navigation.Has_gps.Value ? "Tak" : "Nie" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Has_a_gps nie jest null -->
                                                             <TableRow>
@@ -503,29 +504,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
-                                <!-- Wyświetlanie danych sieciowych -->
-                                @if (smartphone.Data.Network != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Sieć</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Has_nfc nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>NFC</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Network.Has_nfc.HasValue ? smartphone.Data.Network.Has_nfc.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                            <!-- Wyświetlanie danych sieciowych -->
+                            @if (smartphone.Data.Network != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Sieć</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Has_nfc nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>NFC</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Network.Has_nfc.HasValue ? smartphone.Data.Network.Has_nfc.Value ? "Tak" : "Nie" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Has_mimo nie jest null -->
                                                             <TableRow>
@@ -563,70 +564,70 @@
                                                                 <TableRowCell>@(smartphone.Data.Network.Has_bluetooth.HasValue ? smartphone.Data.Network.Has_bluetooth.Value ? "Tak" : "Nie" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Wyświetlanie wartości, jeśli nie są null -->
-                                                            @if (smartphone.Data.Network.Type_sim_card != null)
-                                                            {
-                                                                <TableRow>
-                                                                    <TableRowHeader>Typ karty SIM</TableRowHeader>
-                                                                    <TableRowCell>@smartphone.Data.Network.Type_sim_card</TableRowCell>
+                                                        @if (smartphone.Data.Network.Type_sim_card != null)
+                                                        {
+                                                            <TableRow>
+                                                                <TableRowHeader>Typ karty SIM</TableRowHeader>
+                                                                <TableRowCell>@smartphone.Data.Network.Type_sim_card</TableRowCell>
+                                                            </TableRow>
+                                                        }
+                                                        @if (smartphone.Data.Network.Wifi_standards != null)
+                                                        {
+                                                            <TableRow>
+                                                                <TableRowHeader>Standardy WiFi</TableRowHeader>
+                                                                <TableRowCell>@smartphone.Data.Network.Wifi_standards</TableRowCell>
+                                                            </TableRow>
+                                                        }
+                                                        @if (smartphone.Data.Network.Sim_card_capacity != null)
+                                                        {
+                                                            <TableRow>
+                                                                <TableRowHeader>Pojemność karty SIM</TableRowHeader>
+                                                                <TableRowCell>@smartphone.Data.Network.Sim_card_capacity</TableRowCell>
+                                                            </TableRow>
+                                                        }
+                                                        @if (smartphone.Data.Network.Generation_mobile_network != null)
+                                                        {
+                                                            <TableRow>
+                                                                <TableRowHeader>Generacja sieci mobilnej</TableRowHeader>
+                                                                <TableRowCell>@smartphone.Data.Network.Generation_mobile_network</TableRowCell>
+                                                            </TableRow>
+                                                        }
+                                                        @if (smartphone.Data.Network.Bluetooth_version.HasValue)
+                                                        {
+                                                            <TableRow>
+                                                                <TableRowHeader>Wersja Bluetooth</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Network.Bluetooth_version.HasValue ? smartphone.Data.Network.Bluetooth_version.Value.ToString() : "-")</TableRowCell>
                                                                 </TableRow>
-                                                            }
-                                                            @if (smartphone.Data.Network.Wifi_standards != null)
-                                                            {
-                                                                <TableRow>
-                                                                    <TableRowHeader>Standardy WiFi</TableRowHeader>
-                                                                    <TableRowCell>@smartphone.Data.Network.Wifi_standards</TableRowCell>
-                                                                </TableRow>
-                                                            }
-                                                            @if (smartphone.Data.Network.Sim_card_capacity != null)
-                                                            {
-                                                                <TableRow>
-                                                                    <TableRowHeader>Pojemność karty SIM</TableRowHeader>
-                                                                    <TableRowCell>@smartphone.Data.Network.Sim_card_capacity</TableRowCell>
-                                                                </TableRow>
-                                                            }
-                                                            @if (smartphone.Data.Network.Generation_mobile_network != null)
-                                                            {
-                                                                <TableRow>
-                                                                    <TableRowHeader>Generacja sieci mobilnej</TableRowHeader>
-                                                                    <TableRowCell>@smartphone.Data.Network.Generation_mobile_network</TableRowCell>
-                                                                </TableRow>
-                                                            }
-                                                            @if (smartphone.Data.Network.Bluetooth_version.HasValue)
-                                                            {
-                                                                <TableRow>
-                                                                    <TableRowHeader>Wersja Bluetooth</TableRowHeader>
-                                                                    <TableRowCell>@(smartphone.Data.Network.Bluetooth_version.HasValue ? smartphone.Data.Network.Bluetooth_version.Value.ToString() : "-")</TableRowCell>
-                                                                </TableRow>
-                                                            }
-                                                        </TableBody>
-                                                    </Table>
-                                                </div>
+                                                        }
+                                                    </TableBody>
+                                                </Table>
                                             </div>
                                         </div>
                                     </div>
-                                }
+                                </div>
+                            }
 
-                               <!-- Porty i Interfejsy -->
-                                @if (smartphone.Data.PortsInterfaces != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Porty i interfejsy</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Has_lightning_connector nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Posiada złącze Lightning</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.PortsInterfaces.Has_lightning_connector.HasValue ? smartphone.Data.PortsInterfaces.Has_lightning_connector.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                            <!-- Porty i Interfejsy -->
+                            @if (smartphone.Data.PortsInterfaces != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Porty i interfejsy</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Has_lightning_connector nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Posiada złącze Lightning</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.PortsInterfaces.Has_lightning_connector.HasValue ? smartphone.Data.PortsInterfaces.Has_lightning_connector.Value ? "Tak" : "Nie" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Has_usb nie jest null -->
                                                             <TableRow>
@@ -644,29 +645,29 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
-                                <!-- Sensors -->
-                                @if (smartphone.Data.Sensors != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Sensory</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Has_barometer nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Barometr</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Sensors.Has_barometer.HasValue ? smartphone.Data.Sensors.Has_barometer.Value ? "Tak" : "Nie" : "-")</TableRowCell>
+                            <!-- Sensors -->
+                            @if (smartphone.Data.Sensors != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Sensory</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Has_barometer nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Barometr</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Sensors.Has_barometer.HasValue ? smartphone.Data.Sensors.Has_barometer.Value ? "Tak" : "Nie" : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Has_gyroscope nie jest null -->
                                                             <TableRow>
@@ -694,122 +695,123 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                            }
 
-                                <!-- Oprgramowanie -->
-                                @if (!string.IsNullOrEmpty(smartphone.Data.Software?.Os))
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Oprogramowanie</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <TableRow>
-                                                                <TableRowHeader>System operacyjny</TableRowHeader>
-                                                                <TableRowCell>@smartphone.Data.Software.Os</TableRowCell>
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
-                                <!-- Pamięć -->
-                                @if (smartphone.Data.Storage != null)
-                                {
-                                    <div class="card custom-shadow">
-                                        <div class="card-body d-flex flex-column justify-content-between h-100">
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-3">
-                                                </div>
-                                                <div class="card-body">
-                                                    <Table Striped>
-                                                        <TableHeader>
-                                                            <TableRow>
-                                                                <TableHeaderCell>Pamięć</TableHeaderCell>
-                                                                <TableHeaderCell></TableHeaderCell>
-                                                            </TableRow>
-                                                        </TableHeader>
-                                                        <TableBody>
-                                                            <!-- Sprawdź, czy Capacity_gb nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Pojemność</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Storage.Capacity__gb.HasValue ? smartphone.Data.Storage.Capacity__gb.ToString() : "-") GB</TableRowCell>
-                                                            </TableRow>
-                                                        </TableBody>
-                                                    </Table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-
-
-                                <!-- Opinie -->
-                                <div class="card-body">
-                                
-                                    <div class="card custom-shadow">
-                                        <div>
-                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <h3>Dodaj opinię</h3>
-                                            </div>
-                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <div style="font-size: 21px; flex-direction: row;">
-                                                    <span>Ocena:</span>
-                                                    <Rating Color="Color.Warning" MaxValue="5" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <div>
-                                                    <textarea  rows="4" cols="50"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <button class="btn btn-primary">Dodaj</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                               @if (smartphone.Opinions != null)
-                                {
+                            <!-- Oprgramowanie -->
+                            @if (!string.IsNullOrEmpty(smartphone.Data.Software?.Os))
+                            {
                                 <div class="card custom-shadow">
-                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <h3>Opinie użytkowników</h3>
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Oprogramowanie</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <TableRow>
+                                                            <TableRowHeader>System operacyjny</TableRowHeader>
+                                                            <TableRowCell>@smartphone.Data.Software.Os</TableRowCell>
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </div>
                                         </div>
-                                    
-                                    <div>
-                                        @foreach (var opinion in smartphone.Opinions)
-                                        {
-                                            
-                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <div style="font-size: 21px; flex-direction: row;">
-                                                    @opinion.User
-                                                    <Rating Color="Color.Warning" readonly SelectedValue="opinion.Rating ?? 0" MaxValue="5" />
-                                                    <Badge Color="Color.Secondary">@opinion.Rating/5</Badge>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                                <p>@opinion.Content</p>
-                                            </div>
-                                        }
                                     </div>
                                 </div>
+                            }
+
+                            <!-- Pamięć -->
+                            @if (smartphone.Data.Storage != null)
+                            {
+                                <div class="card custom-shadow">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100">
+                                        <div class="d-flex align-items-center">
+                                            <div class="mr-3">
+                                            </div>
+                                            <div class="card-body">
+                                                <Table Striped>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHeaderCell>Pamięć</TableHeaderCell>
+                                                            <TableHeaderCell></TableHeaderCell>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                        <!-- Sprawdź, czy Capacity_gb nie jest null -->
+                                                        <TableRow>
+                                                            <TableRowHeader>Pojemność</TableRowHeader>
+                                                            <TableRowCell>@(smartphone.Data.Storage.Capacity__gb.HasValue ? smartphone.Data.Storage.Capacity__gb.ToString() : "-") GB</TableRowCell>
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                            <!-- Opinie -->
+                            <div class="card-body">
+
+                                <div class="card custom-shadow">
+                                    <div>
+                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                            <h3>Dodaj opinię</h3>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                            <div style="font-size: 21px; flex-direction: row;">
+                                                <span>Ocena:</span>
+                                               <Rating Color="Color.Warning" MaxValue="5" @bind-SelectedValue="RatingValue" />
+															
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                            <div>
+                                                <textarea rows="4" cols="50" @bind="OpinionText"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                            <button class="btn btn-primary" @onclick="AddOpinion">Dodaj</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                @if (smartphone.Opinions != null)
+                                {
+                                    <div class="card custom-shadow">
+                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                            <h3>Opinie użytkowników</h3>
+                                        </div>
+
+                                        <div>
+                                            @foreach (var opinion in smartphone.Opinions)
+                                            {
+
+                                                <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                    <div style="font-size: 21px; flex-direction: row;">
+                                                        @opinion.User
+                                                        <Rating Color="Color.Warning" readonly SelectedValue="opinion.Rating ?? 0" MaxValue="5" />
+                                                        <Badge Color="Color.Secondary">@opinion.Rating/5</Badge>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                    <p>@opinion.Content</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
                                 }
 
-                                </div>
+                            </div>
 
 
 
@@ -832,13 +834,30 @@
 
 
 @code {
-	 [Parameter]
+    [Parameter]
     public string id { get; set; }
+    public string OpinionText { get; set; }
+    public int RatingValue{ get; set; }
 
 
     protected override async Task OnParametersSetAsync()
     {
         await viewModel.GetSmartphoneById(id);
     }
+
+    private async Task AddOpinion()
+    {
+        var test = new AddOpinionCommand();
+        test.SmartphoneId = id;
+        test.Opinion = new OpinionModel(); 
+        test.Opinion.Content = OpinionText;
+        test.Opinion.Rating = RatingValue;
+        test.Opinion.User = viewModel2.Username;
+
+        await service.AddOpinion(test);
+        await viewModel.GetSmartphoneById(id);
+        OpinionText = string.Empty;
+        RatingValue = 0;
+}
 }
 
