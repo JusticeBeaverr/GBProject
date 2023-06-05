@@ -35,10 +35,10 @@
                             <div class="card-body">
 										<h5 class="card-title">@smartphone.Name</h5>
 										<p class="card-text small">
-											<strong>Ekran:</strong> @smartphone.Data.Display.Size_inch<br />
+											@*<strong>Ekran:</strong> @smartphone.Data.Display.Size_inch<br />
 											<strong>Procesor:</strong> @smartphone.Data.Cpu.Type<br />
 											<strong>System:</strong> @smartphone.Data.Software.Os<br />
-											<strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity_gb<br />
+											<strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity_gb<br />*@
 
 										</p>
 									</div>
@@ -299,7 +299,7 @@
                                                         </TableHeader>
                                                         <TableBody>
                                                             <!-- Sprawdź, czy Type nie jest null -->
-                                                            <TableRow>
+                                                           @* <TableRow>
                                                                 <TableRowHeader>Typ</TableRowHeader>
                                                                 <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Type) ? "-" : smartphone.Data.Display.Type)</TableRowCell>
                                                             </TableRow>
@@ -342,7 +342,7 @@
                                                             <TableRow>
                                                                 <TableRowHeader>Rozdzielczość pikseli</TableRowHeader>
                                                                 <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Resolution_pixels) ? "-" : smartphone.Data.Display.Resolution_pixels)</TableRowCell>
-                                                            </TableRow>
+                                                            </TableRow>*@
                                                             <!-- Sprawdź, czy Fingerprint_resistant nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Odporność na odciski palców</TableRowHeader>
@@ -420,9 +420,9 @@
                                                         </TableHeader>
                                                         <TableBody>
                                                             <!-- Sprawdź, czy Height_mm nie jest null -->
-                                                            <TableRow>
-                                                                <TableRowHeader>Wysokość (mm)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Measurements.Height_mm.HasValue ? smartphone.Data.Measurements.Height_mm.Value.ToString() : "-")</TableRowCell>
+                                                          @*  <TableRow>
+                                                                <TableRowHeader>Wysokość (mm)</TableRowHeader>*@
+                                                               @* <TableRowCell>@(smartphone.Data.Measurements.Height_mm.HasValue ? smartphone.Data.Measurements.Height_mm.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Length_mm nie jest null -->
                                                             <TableRow>
@@ -438,7 +438,7 @@
                                                             <TableRow>
                                                                 <TableRowHeader>Waga (g)</TableRowHeader>
                                                                 <TableRowCell>@(smartphone.Data.Measurements.Weight_g.HasValue ? smartphone.Data.Measurements.Weight_g.Value.ToString() : "-")</TableRowCell>
-                                                            </TableRow>
+                                                            </TableRow>*@
                                                         </TableBody>
                                                     </Table>
                                                 </div>
@@ -741,10 +741,10 @@
                                                         </TableHeader>
                                                         <TableBody>
                                                             <!-- Sprawdź, czy Capacity_gb nie jest null -->
-                                                            <TableRow>
+                                                           @* <TableRow>
                                                                 <TableRowHeader>Pojemność</TableRowHeader>
                                                                 <TableRowCell>@(smartphone.Data.Storage.Capacity_gb.HasValue ? smartphone.Data.Storage.Capacity_gb.ToString() : "-") GB</TableRowCell>
-                                                            </TableRow>
+                                                            </TableRow>*@
                                                         </TableBody>
                                                     </Table>
                                                 </div>

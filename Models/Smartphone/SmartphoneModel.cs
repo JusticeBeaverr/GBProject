@@ -84,13 +84,13 @@
     {
         public string? Type { get; set; }
         public string? Shape { get; set; }
-        public double? Size_inch { get; set; }
+        public double? Size__inch { get; set; }
         public string? Contrast_ratio { get; set; }
-        public int? Brightness_cdm { get; set; }
+        public int? Brightness__cdm { get; set; }
         public bool? Has_touchscreen { get; set; }
-        public int? Refresh_rate_hz { get; set; }
-        public int? Pixel_density_ppi { get; set; }
-        public string? Resolution_pixels { get; set; }
+        public int? Refresh_rate__hz { get; set; }
+        public int? Pixel_density__ppi { get; set; }
+        public string? Resolution__pixels { get; set; }
         public bool? Fingerprint_resistant { get; set; }
         public bool? Has_gorilla_glass { get; set; }
     }
@@ -104,10 +104,10 @@
 
     public class Measurements
     {
-        public double? Height_mm { get; set; }
-        public double? Length_mm { get; set; }
-        public double? Width_mm { get; set; }
-        public int? Weight_g { get; set; }
+        public double? Height__mm { get; set; }
+        public double? Length__mm { get; set; }
+        public double? Width__mm { get; set; }
+        public double? Weight__g { get; set; }
     }
 
     public class Navigation
@@ -160,7 +160,7 @@
 
     public class Storage
     {
-        public int? Capacity_gb { get; set; }
+        public int? Capacity__gb { get; set; }
     }
 
 

@@ -31,11 +31,18 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <th>Marka</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                        <td>@(smartphone.Data.General?.Brand ?? "---")</td>
+                }
+        </tr        >
     <tr>
         <th>Rozmiar</th>
         @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
         {
-            <td>@(smartphone.Data.Measurements.Width_mm.HasValue ? smartphone.Data.Measurements.Width_mm.Value.ToString() : "---")</td>
+            <td>@(smartphone.Data.Display.Size__inch.HasValue ? smartphone.Data.Display.Size__inch.Value.ToString() : "---")</td>
         }
     </tr>
     <tr>
@@ -56,7 +63,7 @@
         <th>Pamięć</th>
         @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
         {
-            <td>@(smartphone.Data.Storage.Capacity_gb.HasValue ? smartphone.Data.Storage.Capacity_gb.Value.ToString() : "---")</td>
+            <td>@(smartphone.Data.Storage.Capacity__gb.HasValue ? smartphone.Data.Storage.Capacity__gb.Value.ToString() : "---")</td>
         }
     </tr>
     <tr>
@@ -74,10 +81,17 @@
         }
     </tr>
     <tr>
-        <th>Pojemność RAM</th>
+        <th>Procesor</th>
         @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
         {
-            <td>@(smartphone.Data.General?.Brand ?? "---")</td>
+            <td>@(smartphone.Data.Cpu?.Type ?? "---")</td>
+        }
+    </tr>
+    <tr>
+        <th>Rdzenie</th>
+        @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+        {
+            <td>@(smartphone.Data.Cpu?.Number_of_cores.ToString() ?? "---")</td>
         }
     </tr>
     <tr>
@@ -98,9 +112,72 @@
         <th>Waga</th>
         @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
         {
-            <td>@(smartphone.Data.Measurements.Weight_g.HasValue ? smartphone.Data.Measurements.Weight_g.Value.ToString() : "---")</td>
+            <td>@(smartphone.Data.Measurements.Weight__g.HasValue ? smartphone.Data.Measurements.Weight__g.Value.ToString() : "---")</td>
         }
     </tr>
+            <tr>
+                <th>MagSafe</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_magsafe && smartphone.Data.Has_magsafe? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Wodoodporność</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Is_water_resistant.HasValue && smartphone.Data.Is_water_resistant.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Szybkie ładowanie</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_fast_charge.HasValue && smartphone.Data.Has_fast_charge.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Ładowanie bezprzewodowe</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_wireless_charging.HasValue && smartphone.Data.Has_wireless_charging.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Odporność na wstrząsy</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Is_shock_resistant.HasValue && smartphone.Data.Is_shock_resistant.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Wibracyjny budzik</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_vibrating_alarm.HasValue && smartphone.Data.Has_vibrating_alarm.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Rozpoznawanie twarzy</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_face_recognition.HasValue && smartphone.Data.Has_face_recognition.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Odcisk palca</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_fingerprint_reader.HasValue && smartphone.Data.Has_fingerprint_reader.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
+            <tr>
+                <th>Gniazdo słuchawkowe</th>
+                @foreach (var smartphone in viewModel.SmartphonesComparisonListComparsionView)
+                {
+                    <td>@(smartphone.Data.Has_headphone_jack.HasValue && smartphone.Data.Has_headphone_jack.Value ? "Tak" : "Nie")</td>
+                }
+            </tr>
 </tbody>
 
 
