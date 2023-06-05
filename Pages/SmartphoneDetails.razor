@@ -5,6 +5,8 @@
 @using Blazorise.Bootstrap
 @using Blazorise.Icons.FontAwesome
 
+
+
 ﻿
 
 
@@ -35,10 +37,10 @@
                             <div class="card-body">
 										<h5 class="card-title">@smartphone.Name</h5>
 										<p class="card-text small">
-											@*<strong>Ekran:</strong> @smartphone.Data.Display.Size_inch<br />
+											<strong>Ekran:</strong> @smartphone.Data.Display.Size__inch<br />
 											<strong>Procesor:</strong> @smartphone.Data.Cpu.Type<br />
 											<strong>System:</strong> @smartphone.Data.Software.Os<br />
-											<strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity_gb<br />*@
+											<strong>Pamięć:</strong> @smartphone.Data.Storage.Capacity__gb<br />
 
 										</p>
 									</div>
@@ -299,7 +301,7 @@
                                                         </TableHeader>
                                                         <TableBody>
                                                             <!-- Sprawdź, czy Type nie jest null -->
-                                                           @* <TableRow>
+                                                            <TableRow>
                                                                 <TableRowHeader>Typ</TableRowHeader>
                                                                 <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Type) ? "-" : smartphone.Data.Display.Type)</TableRowCell>
                                                             </TableRow>
@@ -311,7 +313,7 @@
                                                             <!-- Sprawdź, czy Size__inch nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Rozmiar (cal)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Display.Size_inch.HasValue ? smartphone.Data.Display.Size_inch.Value.ToString() : "-")</TableRowCell>
+                                                                <TableRowCell>@(smartphone.Data.Display.Size__inch.HasValue ? smartphone.Data.Display.Size__inch.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Contrast_ratio nie jest null -->
                                                             <TableRow>
@@ -321,7 +323,7 @@
                                                             <!-- Sprawdź, czy Brightness_cdm nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Jasność (cd/m²)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Display.Brightness_cdm.HasValue ? smartphone.Data.Display.Brightness_cdm.Value.ToString() : "-")</TableRowCell>
+                                                                <TableRowCell>@(smartphone.Data.Display.Brightness__cdm.HasValue ? smartphone.Data.Display.Brightness__cdm.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Has_touchscreen nie jest null -->
                                                             <TableRow>
@@ -331,18 +333,18 @@
                                                             <!-- Sprawdź, czy Refresh_rate_hz nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Częstotliwość odświeżania (Hz)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Display.Refresh_rate_hz.HasValue ? smartphone.Data.Display.Refresh_rate_hz.Value.ToString() : "-")</TableRowCell>
+                                                                <TableRowCell>@(smartphone.Data.Display.Refresh_rate__hz.HasValue ? smartphone.Data.Display.Refresh_rate__hz.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Pixel_density_ppi nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Gęstość pikseli (PPI)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Display.Pixel_density_ppi.HasValue ? smartphone.Data.Display.Pixel_density_ppi.Value.ToString() : "-")</TableRowCell>
+                                                                <TableRowCell>@(smartphone.Data.Display.Pixel_density__ppi.HasValue ? smartphone.Data.Display.Pixel_density__ppi.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Resolution_pixels nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Rozdzielczość pikseli</TableRowHeader>
-                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Resolution_pixels) ? "-" : smartphone.Data.Display.Resolution_pixels)</TableRowCell>
-                                                            </TableRow>*@
+                                                                <TableRowCell>@(string.IsNullOrEmpty(smartphone.Data.Display.Resolution__pixels) ? "-" : smartphone.Data.Display.Resolution__pixels)</TableRowCell>
+                                                            </TableRow>
                                                             <!-- Sprawdź, czy Fingerprint_resistant nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Odporność na odciski palców</TableRowHeader>
@@ -420,25 +422,25 @@
                                                         </TableHeader>
                                                         <TableBody>
                                                             <!-- Sprawdź, czy Height_mm nie jest null -->
-                                                          @*  <TableRow>
-                                                                <TableRowHeader>Wysokość (mm)</TableRowHeader>*@
-                                                               @* <TableRowCell>@(smartphone.Data.Measurements.Height_mm.HasValue ? smartphone.Data.Measurements.Height_mm.Value.ToString() : "-")</TableRowCell>
+                                                            <TableRow>
+                                                                <TableRowHeader>Wysokość (mm)</TableRowHeader>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Height__mm.HasValue ? smartphone.Data.Measurements.Height__mm.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Length_mm nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Długość (mm)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Measurements.Length_mm.HasValue ? smartphone.Data.Measurements.Length_mm.Value.ToString() : "-")</TableRowCell>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Length__mm.HasValue ? smartphone.Data.Measurements.Length__mm.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Width_mm nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Szerokość (mm)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Measurements.Width_mm.HasValue ? smartphone.Data.Measurements.Width_mm.Value.ToString() : "-")</TableRowCell>
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Width__mm.HasValue ? smartphone.Data.Measurements.Width__mm.Value.ToString() : "-")</TableRowCell>
                                                             </TableRow>
                                                             <!-- Sprawdź, czy Weight_g nie jest null -->
                                                             <TableRow>
                                                                 <TableRowHeader>Waga (g)</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Measurements.Weight_g.HasValue ? smartphone.Data.Measurements.Weight_g.Value.ToString() : "-")</TableRowCell>
-                                                            </TableRow>*@
+                                                                <TableRowCell>@(smartphone.Data.Measurements.Weight__g.HasValue ? smartphone.Data.Measurements.Weight__g.Value.ToString() : "-")</TableRowCell>
+                                                            </TableRow>
                                                         </TableBody>
                                                     </Table>
                                                 </div>
@@ -741,10 +743,10 @@
                                                         </TableHeader>
                                                         <TableBody>
                                                             <!-- Sprawdź, czy Capacity_gb nie jest null -->
-                                                           @* <TableRow>
+                                                            <TableRow>
                                                                 <TableRowHeader>Pojemność</TableRowHeader>
-                                                                <TableRowCell>@(smartphone.Data.Storage.Capacity_gb.HasValue ? smartphone.Data.Storage.Capacity_gb.ToString() : "-") GB</TableRowCell>
-                                                            </TableRow>*@
+                                                                <TableRowCell>@(smartphone.Data.Storage.Capacity__gb.HasValue ? smartphone.Data.Storage.Capacity__gb.ToString() : "-") GB</TableRowCell>
+                                                            </TableRow>
                                                         </TableBody>
                                                     </Table>
                                                 </div>
@@ -755,9 +757,59 @@
 
 
                                 <!-- Opinie -->
-  
+                                <div class="card-body">
+                                
+                                    <div class="card custom-shadow">
+                                        <div>
+                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <h3>Dodaj opinię</h3>
+                                            </div>
+                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <div style="font-size: 21px; flex-direction: row;">
+                                                    <span>Ocena:</span>
+                                                    <Rating Color="Color.Warning" MaxValue="5" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <div>
+                                                    <textarea  rows="4" cols="50"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <button class="btn btn-primary">Dodaj</button>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
+
+                               @if (smartphone.Opinions != null)
+                                {
+                                <div class="card custom-shadow">
+                                        <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <h3>Opinie użytkowników</h3>
+                                        </div>
+                                    
+                                    <div>
+                                        @foreach (var opinion in smartphone.Opinions)
+                                        {
+                                            
+                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <div style="font-size: 21px; flex-direction: row;">
+                                                    @opinion.User
+                                                    <Rating Color="Color.Warning" readonly SelectedValue="opinion.Rating ?? 0" MaxValue="5" />
+                                                    <Badge Color="Color.Secondary">@opinion.Rating/5</Badge>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2 d-flex justify-content-center">
+                                                <p>@opinion.Content</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                }
+
+                                </div>
 
 
 
