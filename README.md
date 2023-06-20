@@ -91,4 +91,7 @@ We would like to express our gratitude to the following individuals for their co
 - Mariusz Gamrat
 - Magda Gazda
 
-Thank you for your interest in GadgetBlitz. If you have any questions or encounter any issues, please feel free to reach out to us. Happy browsing!
+## Screenshots
+[Screenshots folder](https://github.com/JusticeBeaverr/GBProject/tree/master/Screenshots)
+
+### Thank you for your interest in GadgetBlitz. If you have any questions or encounter any issues, please feel free to reach out to us. Happy browsing!
