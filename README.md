@@ -1,6 +1,8 @@
 # GadgetBlitz
 Welcome to GadgetBlitz! This is a comprehensive documentation guide that will provide you with all the necessary information about the project.
 
+![Main View](Screenshots/image-20230609-102209.png)
+
 ## Introduction
 GadgetBlitz is a web application designed to serve as a platform for **browsing** and **comparing mobile phones**. The application enables users to find detailed information about various phone models and make informed decisions based on their specific requirements. Whether you are a tech enthusiast, a consumer looking to purchase a new phone, or simply curious about the latest mobile technology, GadgetBlitz provides an intuitive and user-friendly interface to explore the vast world of smartphones.
 
